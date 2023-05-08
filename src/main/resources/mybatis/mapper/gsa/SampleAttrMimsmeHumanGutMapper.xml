@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleAttrMimsmeHumanGutMapper">
+	 <resultMap id="SampleAttrMimsmeHumanGut" type="SampleAttrMimsmeHumanGut">
+		 <id column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		 <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+		 <result column="collection_date" property="collectionDate" jdbcType="DATE"/>
+		 <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+		 <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+		 <result column="environment_biome" property="environmentBiome" jdbcType="VARCHAR" />
+		 <result column="environment_feature" property="environmentFeature" jdbcType="VARCHAR" />
+		 <result column="environment_material" property="environmentMaterial" jdbcType="VARCHAR" />
+		 <result column="reference_biomaterial" property="referenceBiomaterial" jdbcType="VARCHAR" />
+		 <result column="sample_collection_device" property="sampleCollectionDevice" jdbcType="VARCHAR" />
+		 <result column="sample_material_processing" property="sampleMaterialProcessing" jdbcType="VARCHAR" />
+		 <result column="sample_size" property="sampleSize" jdbcType="VARCHAR" />
+		 <result column="source_material_identifiers" property="sourceMaterialIdentifiers" jdbcType="VARCHAR" />
+		 <result column="sample_volume_weight" property="sampleVolumeWeight" jdbcType="VARCHAR" />
+		 <result column="chemical_administration" property="chemicalAdministration" jdbcType="VARCHAR" />
+		 <result column="ethnicity" property="ethnicity" jdbcType="VARCHAR" />
+		 <result column="gastrointestinal_tract_disorder" property="gastrointestinalTractDisorder" jdbcType="VARCHAR" />
+		 <result column="host_age" property="hostAge" jdbcType="VARCHAR" />
+		 <result column="host_mass_index" property="hostMassIndex" jdbcType="VARCHAR" />
+		 <result column="host_product" property="hostProduct" jdbcType="VARCHAR" />
+		 <result column="host_temperature" property="hostTemperature" jdbcType="VARCHAR" />
+		 <result column="host_diet" property="hostDiet" jdbcType="VARCHAR" />
+		 <result column="host_disease" property="hostDisease" jdbcType="VARCHAR" />
+		 <result column="host_family_relationship" property="hostFamilyRelationship" jdbcType="VARCHAR" />
+		 <result column="host_genotype" property="hostGenotype" jdbcType="VARCHAR" />
+		 <result column="host_height" property="hostHeight" jdbcType="VARCHAR" />
+		 <result column="host_last_meal" property="hostLastMeal" jdbcType="VARCHAR" />
+		 <result column="host_occupation" property="hostOccupation" jdbcType="VARCHAR" />
+		 <result column="host_phenotype" property="hostPhenotype" jdbcType="VARCHAR" />
+		 <result column="host_pulse" property="hostPulse" jdbcType="VARCHAR" />
+		 <result column="host_subject_id" property="hostSubjectId" jdbcType="VARCHAR" />
+		 <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+		 <result column="host_total_mass" property="hostTotalMass" jdbcType="VARCHAR" />
+		 <result column="medication_code" property="medicationCode" jdbcType="VARCHAR" />
+		 <result column="liver_disorder" property="liverDisorder" jdbcType="VARCHAR" />
+		 <result column="medical_history_performed" property="medicalHistoryPerformed" jdbcType="VARCHAR" />
+		 <result column="miscellaneous_parameter" property="miscellaneousParameter" jdbcType="VARCHAR" />
+		 <result column="organism_count" property="organismCount" jdbcType="VARCHAR" />
+		 <result column="perturbation" property="perturbation" jdbcType="VARCHAR" />
+		 <result column="salinity" property="salinity" jdbcType="VARCHAR" />
+		 <result column="storage_duration" property="storageDuration" jdbcType="VARCHAR" />
+		 <result column="storage_location" property="storageLocation" jdbcType="VARCHAR" />
+		 <result column="storage_temperature" property="storageTemperature" jdbcType="VARCHAR" />
+		 <result column="special_diet" property="specialDiet" jdbcType="VARCHAR" />
+		 <result column="temperature" property="temperature" jdbcType="VARCHAR" />
+		 <result column="description" property="description" jdbcType="VARCHAR" />
+	 </resultMap>
+
+	<select id="findBySampleId" parameterType="int" resultMap="SampleAttrMimsmeHumanGut">
+		SELECT  * FROM sample_attr_mimsme_human_gut	 WHERE sample_id=#{ sampleId }
+	</select>
+
+	<insert id="saveSampleAttrMimsmeHumanGutByHuman" parameterType="SampleAttrMimsmeHumanGutSynchronization" >
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="attributeId">
+			SELECT LAST_INSERT_ID() as attributeId
+		</selectKey>
+
+		INSERT INTO
+		sample_attr_mimsme_human_gut(taxon_id,sample_id,host_organism_id,collection_date,geographic_location,latitude_longitude,environment_biome,environment_feature,environment_material,
+		chemical_administration,ethnicity,gastrointestinal_tract_disorder,host_age,host_age_unit,host_product,host_temperature,host_diet,host_disease,host_genotype
+		,host_height,host_phenotype,host_sex_id,host_subject_id,host_tissue_sampled,isolation_source,liver_disorder,medical_history_performed,organism_count,oxygenation_status_id)
+		VALUES(
+		#{taxonId,jdbcType=INTEGER},
+		#{sampleId,jdbcType=INTEGER},
+		#{hostOrganismId,jdbcType=INTEGER},
+		#{collectionDate,jdbcType=TIMESTAMP},
+		#{geographicLocation,jdbcType=VARCHAR},
+		#{latitudeLongitude,jdbcType=VARCHAR},
+		#{environmentBiome,jdbcType=VARCHAR},
+		#{environmentFeature,jdbcType=VARCHAR},
+		#{environmentMaterial,jdbcType=VARCHAR},
+		#{chemicalAdministration,jdbcType=VARCHAR},
+		#{ethnicity,jdbcType=VARCHAR},
+		#{gastrointestinalTractDisorder,jdbcType=VARCHAR},
+		#{hostAge,jdbcType=VARCHAR},
+		#{hostAgeUnit,jdbcType=VARCHAR},
+		#{hostProduct,jdbcType=VARCHAR},
+		#{hostTemperature,jdbcType=VARCHAR},
+		#{hostDiet,jdbcType=VARCHAR},
+		#{hostDisease,jdbcType=VARCHAR},
+		#{hostGenotype,jdbcType=VARCHAR},
+		#{hostHeight,jdbcType=VARCHAR},
+		#{hostPhenotype,jdbcType=VARCHAR},
+		#{sex,jdbcType=INTEGER},
+		#{hostSubjectId,jdbcType=VARCHAR},
+		#{hostTissueSampled,jdbcType=VARCHAR},
+		#{isolationSource,jdbcType=VARCHAR},
+		#{liverDisorder,jdbcType=VARCHAR},
+		#{medicalHistoryPerformed,jdbcType=VARCHAR},
+		#{organismCount,jdbcType=VARCHAR},
+		#{oxygenationStatus,jdbcType=INTEGER}
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.human.StudyMapper">
+    <resultMap id="Study" type="Study">
+        <id column="study_id" jdbcType="INTEGER" property="studyId" />
+        <result column="study_type_id" jdbcType="INTEGER" property="studyTypeId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="submitter_id" jdbcType="INTEGER" property="submitterId" />
+        <result column="dac_id" jdbcType="INTEGER" property="dacId" />
+        <result column="is_controlled_access" jdbcType="INTEGER" property="isControlledAccess" />
+        <result column="accession" jdbcType="VARCHAR" property="accession" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="prj_id" jdbcType="INTEGER" property="prjId" />
+        <result column="prj_accession" jdbcType="VARCHAR" property="prjAccession" />
+        <result column="package_id" jdbcType="INTEGER" property="packageId" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="release_state" jdbcType="BOOLEAN" property="releaseState" />
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+        <result column="archived_time" jdbcType="TIMESTAMP" property="archivedTime" />
+        <result column="disease_name" jdbcType="VARCHAR" property="diseaseName" />
+        <result column="is_release_immediately" jdbcType="BOOLEAN" property="isReleaseImmediately" />
+        <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+        <result column="longitudinal" jdbcType="INTEGER" property="longitudinal" />
+        <result column="sample_synchronization" jdbcType="INTEGER" property="sampleSynchronization" />
+        <result column="is_most_registered" jdbcType="INTEGER" property="isMostRegistered" />
+        <result column="is_commercial_cellline" jdbcType="INTEGER" property="isCommercial" />
+        <result column="openaccess_data_type" jdbcType="INTEGER" property="openaccessDataType" />
+        <result column="is_foreign" jdbcType="INTEGER" property="isForeign" />
+        <association property="user" javaType="User">
+            <id column="user_id" property="userId" jdbcType="INTEGER"/>
+            <result column="uFirstName" property="firstName" jdbcType="VARCHAR"/>
+            <result column="uMiddleName" property="middleName" jdbcType="VARCHAR"/>
+            <result column="uLastName" property="lastName" jdbcType="VARCHAR"/>
+            <result column="uEmail" property="email" jdbcType="VARCHAR"/>
+            <result column="uOrganization" property="organization" jdbcType="VARCHAR"/>
+            <result column="uDepartment" property="department" jdbcType="VARCHAR"/>
+            <result column="uPhone" property="phone" jdbcType="VARCHAR"/>
+            <result column="uFax" property="fax" jdbcType="VARCHAR"/>
+            <result column="uStreet" property="street" jdbcType="VARCHAR"/>
+            <result column="uCity" property="city" jdbcType="VARCHAR"/>
+            <result column="uState" property="state" jdbcType="VARCHAR"/>
+            <result column="uPostalCode" property="postalCode" jdbcType="INTEGER"/>
+            <result column="uCasId" property="casUserId" jdbcType="VARCHAR"/>
+            <association property="country" javaType="Country">
+                <id column="uCountryId" property="countryId" jdbcType="INTEGER"/>
+                <result column="country_name" property="countryName" jdbcType="VARCHAR"/>
+            </association>
+        </association>
+        <association property="submitter" javaType="Submitter">
+            <id column="submitter_id" property="submitterId" jdbcType="INTEGER"/>
+            <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+            <result column="middle_name" property="middleName" jdbcType="VARCHAR"/>
+            <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+            <result column="email" property="email" jdbcType="VARCHAR"/>
+            <result column="email_secondary" property="emailSecondary" jdbcType="VARCHAR"/>
+            <result column="organization" property="organization" jdbcType="VARCHAR"/>
+            <result column="submit_organization_url" property="submitOrganizationUrl" jdbcType="VARCHAR"/>
+            <result column="department" property="department" jdbcType="VARCHAR"/>
+            <result column="phone" property="phone" jdbcType="VARCHAR"/>
+            <result column="fax" property="fax" jdbcType="VARCHAR"/>
+            <result column="street" property="street" jdbcType="VARCHAR"/>
+            <result column="city" property="city" jdbcType="VARCHAR"/>
+            <result column="state" property="state" jdbcType="VARCHAR"/>
+            <result column="postal_code" property="postalCode" jdbcType="INTEGER"/>
+            <association property="country" javaType="Country">
+                <id column="country_id" property="countryId" jdbcType="INTEGER"/>
+                <result column="country_name" property="countryName" jdbcType="VARCHAR"/>
+            </association>
+        </association>
+    </resultMap>
+
+
+    <select id="getUnSynchronizationStudys" parameterType="Integer" resultMap="Study">
+        select st.*,u.user_id,u.first_name as uFirstName,u.middle_name as uMiddleName,u.last_name as uLastName,u.email as uEmail,u.organization as uOrganization,u.cas_user_id as uCasId
+        ,u.department as uDepartment,u.phone as uPhone,u.fax as uFax,u.street as uStreet,u.city as uCity,u.state as uState,u.postal_code as uPostalCode,u.country_id as uCountryId
+        ,sub.* from user u,study st
+        left join submitter sub on sub.submitter_id = st.submitter_id
+        where  st.sample_synchronization=0 and st.status=3  and u.user_id=st.user_id
+    </select>
+    <select id="getUnSynchronizationStudysList" parameterType="java.util.List" resultMap="Study">
+        select st.*,u.user_id,u.first_name as uFirstName,u.middle_name as uMiddleName,u.last_name as uLastName,u.email as uEmail,u.organization as uOrganization,u.cas_user_id as uCasId
+        ,u.department as uDepartment,u.phone as uPhone,u.fax as uFax,u.street as uStreet,u.city as uCity,u.state as uState,u.postal_code as uPostalCode,u.country_id as uCountryId
+        ,sub.* from user u,study st
+        left join submitter sub on sub.submitter_id = st.submitter_id
+        where  st.sample_synchronization=0 and st.status=3  and u.user_id=st.user_id and st.study_id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateSynchronizationByStudyId" parameterType="Integer">
+		UPDATE study set sample_synchronization=1 WHERE study_id=#{studyId}
+	</update>
+
+</mapper>

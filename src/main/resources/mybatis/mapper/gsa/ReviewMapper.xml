@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.ReviewMapper" >
+    <resultMap id="ReviewWeb" type="ReviewWeb">
+        <id column="review_id" property="review_id" jdbcType="INTEGER" />
+        <result column="prj_id" property="prj_id" jdbcType="INTEGER" />
+        <result column="sample_id" property="sample_id" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="webserver" property="webserver" jdbcType="VARCHAR" />
+        <result column="option_date" property="option_date" jdbcType="DATE" />
+        <result column="user_id" property="user_id" jdbcType="INTEGER" />
+    </resultMap>
+    <insert id="insertReview" parameterType="ReviewWeb">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="review_id">
+            SELECT LAST_INSERT_ID() AS review_id
+        </selectKey>
+        INSERT INTO
+        review_web(prj_id,sample_id,status,webserver,option_date,user_id)
+        VALUES(#{prj_id},#{sample_id},#{status},#{webserver},#{option_date},#{user_id})
+    </insert>
+</mapper>

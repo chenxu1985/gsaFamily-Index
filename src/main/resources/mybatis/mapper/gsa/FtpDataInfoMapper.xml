@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.FtpDataInfoMapper">
+    <resultMap id="FtpDataInfo" type="cn.ac.big.bigd.webservice.model.gsa.FtpDataInfo">
+        <result column="accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="visitCount" property="visitCount" jdbcType="INTEGER"/>
+        <result column="fileSize" property="fileSize" jdbcType="VARCHAR"/>
+        <result column="publishDate" property="publishDate" jdbcType="TIMESTAMP"/>
+        <result column="fileCount" property="fileCount" jdbcType="INTEGER"/>
+        <result column="downloadCount" property="downloadCount" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+
+    <select id="getFtpDataInfo"  resultMap="FtpDataInfo">
+        select c.accession,c.release_time as publishDate,sum(run_file_size)/(1024*1024*1024) as fileSize,count(rdf.run_file_id) as fileCount
+        from cra c,run_data_file rdf
+        where c.`status`=3 and c.release_state=2 and rdf.cra_id=c.cra_id
+        group by c.cra_id
+    </select>
+</mapper>

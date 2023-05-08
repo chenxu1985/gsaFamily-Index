@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.human.HumanSampleMapper">
+    <resultMap id="Sample" type="Sample">
+        <id column="sample_id" jdbcType="INTEGER" property="sampleId" />
+        <result column="study_id" jdbcType="INTEGER" property="studyId" />
+        <result column="individual_id" jdbcType="INTEGER" property="individualId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="accession" jdbcType="VARCHAR" property="accession" />
+        <result column="package_id" jdbcType="INTEGER" property="packageId" />
+        <result column="biosample_id" jdbcType="INTEGER" property="biosampleId" />
+        <result column="biosample_accession" jdbcType="VARCHAR" property="biosampleAccession" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="tissue" jdbcType="VARCHAR" property="tissue" />
+        <result column="age" jdbcType="VARCHAR" property="age" />
+        <result column="age_unit" jdbcType="VARCHAR" property="ageUnit" />
+        <result column="public_description" jdbcType="VARCHAR" property="publicDescription" />
+        <result column="collection_date" jdbcType="VARCHAR" property="collectionDate" />
+        <result column="karyotype" jdbcType="VARCHAR" property="karyotype" />
+        <result column="phenotype" jdbcType="VARCHAR" property="phenotype" />
+        <result column="population" jdbcType="VARCHAR" property="population" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="release_state" jdbcType="TINYINT" property="releaseState" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
+        <result column="archived_time" jdbcType="TIMESTAMP" property="archivedTime" />
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+        <result column="is_synchronization" jdbcType="TINYINT" property="IsSynchronization" />
+        <result column="attributes" property="attributes" javaType="Sample" typeHandler="cn.ac.big.bigd.webservice.utility.JsonTypeHandler"/>
+        <result column="custom_attributes" property="customAttributes" javaType="Sample" typeHandler="cn.ac.big.bigd.webservice.utility.JsonTypeHandler"/>
+        <result column="gender" jdbcType="INTEGER" property="gender" />
+        <result column="iAcc" jdbcType="VARCHAR" property="iAcc" />
+        <result column="iAttr" property="iAttr" javaType="Sample" typeHandler="cn.ac.big.bigd.webservice.utility.JsonTypeHandler"/>
+        <result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+    </resultMap>
+
+
+    <select id="getUnSynchronizationSamples" parameterType="Integer" resultMap="Sample">
+        select s.name,s.accession,s.package_id,s.title,s.tissue,s.age,s.age_unit,s.public_description,s.collection_date,s.release_time,s.release_state,
+        s.karyotype,s.phenotype,s.population,s.attributes,s.custom_attributes,s.is_synchronization,i.accession as iAcc,i.gender,i.attributes as iAttr,i.ethnicity
+        from sample s,individual i
+        where  s.is_synchronization=0 and s.status=3 and i.individual_id=s.individual_id and s.study_id = #{studyId}
+    </select>
+
+    <update id="updateBioSampleByAccession" parameterType="Sample">
+		UPDATE sample set biosample_id=#{biosampleId}, biosample_accession=#{biosampleAccession},modify_time = NOW(),is_synchronization=#{IsSynchronization} WHERE accession=#{accession}
+	</update>
+
+    <select id="getUnSynchronizationMetagenomeSamplesGut" parameterType="Integer" resultMap="Sample">
+        select s.name,s.accession,s.package_id,s.title,s.tissue,s.age,s.age_unit,s.public_description,s.collection_date,s.release_time,s.release_state,
+        s.karyotype,s.phenotype,s.population,s.attributes,s.custom_attributes,s.is_synchronization,i.accession as iAcc,i.gender,i.attributes as iAttr,i.ethnicity
+        from sample s,individual i
+        where  s.is_synchronization=0 and s.status=3 and i.individual_id=s.individual_id and json_extract(s.attributes, '$.environment_type')='0' and s.study_id = #{studyId}
+    </select>
+
+    <select id="getUnSynchronizationMetagenomeSamplesNoGut" parameterType="Integer" resultMap="Sample">
+        select s.name,s.accession,s.package_id,s.title,s.tissue,s.age,s.age_unit,s.public_description,s.collection_date,s.release_time,s.release_state,
+        s.karyotype,s.phenotype,s.population,s.attributes,s.custom_attributes,s.is_synchronization,i.accession as iAcc,i.gender,i.attributes as iAttr,i.ethnicity
+        from sample s,individual i
+        where  s.is_synchronization=0 and s.status=3 and i.individual_id=s.individual_id and json_extract(s.attributes, '$.environment_type')!='0' and s.study_id = #{studyId}
+    </select>
+
+</mapper>

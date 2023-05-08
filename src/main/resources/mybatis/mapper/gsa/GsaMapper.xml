@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.GsaMapper">
+    <resultMap id="GSAForBioOne" type="GSAForBioOne">
+        <id column="run_id" property="runId" jdbcType="INTEGER"/>
+        <result column="run_accession" property="runAccession" jdbcType="VARCHAR"/>
+        <result column="gsa_accession" property="gsaAccession" jdbcType="VARCHAR"/>
+        <result column="bioproject_accession" property="bioProjectAccession" jdbcType="VARCHAR"/>
+        <result column="biosample_accession" property="bioSampleAccession" jdbcType="VARCHAR"/>
+        <result column="experiment_accession" property="experimentAccession" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="taxon_name" property="taxonName" jdbcType="VARCHAR"/>
+        <result column="taxon_id" property="taxonId" jdbcType="VARCHAR"/>
+        <result column="platform" property="platform" jdbcType="VARCHAR"/>
+        <result column="library_design" property="libraryDesign" jdbcType="VARCHAR"/>
+        <result column="library_strategy" property="libraryStrategy" jdbcType="VARCHAR" />
+        <result column="library_source" property="librarySource" jdbcType="VARCHAR"/>
+        <result column="library_selection" property="librarySelection" jdbcType="VARCHAR" />
+        <result column="library_layout" property="libraryLayout" jdbcType="VARCHAR" />
+        <result column="insert_size" property="insertSize" jdbcType="INTEGER"/>
+        <result column="planned_read_length" property="plannedReadLength" jdbcType="INTEGER"/>
+        <result column="planned_read_length_mate_1" property="plannedReadLengthMate1" jdbcType="INTEGER"/>
+        <result column="planned_read_length_mate_2" property="plannedReadLengthMate2" jdbcType="INTEGER"/>
+        <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP"/>
+        <result column="run_data_type" property="runDataType" jdbcType="VARCHAR"/>
+        <result column="reference_accesembly_name" property="referenceAccesemblyName" jdbcType="VARCHAR"/>
+        <result column="reference_assembly_url" property="referenceAssemblyUrl" jdbcType="VARCHAR"/>
+        <result column="submitter_email" property="submitterEmail" jdbcType="VARCHAR" />
+        <result column="submitter_affiliation" property="submitterAffiliation" jdbcType="VARCHAR"/>
+        <result column="submitter_name" property="submitterName" jdbcType="VARCHAR"/>
+        <result column="bioproject_title" property="bioProjectTitle" jdbcType="VARCHAR"/>
+        <result column="biosample_title" property="bioSampleTitle" jdbcType="VARCHAR"/>
+        <collection property="runDataFiles" ofType="RunDataFile">
+            <id column="run_file_id" property="runFileId" jdbcType="INTEGER" />
+            <result column="run_file_name" property="runFileName" jdbcType="VARCHAR" />
+            <result column="run_file_size" property="runFileSize" jdbcType="VARCHAR" />
+            <result column="md5" property="md5" jdbcType="VARCHAR" />
+            <result column="archived_file_name" property="archivedFileName" jdbcType="VARCHAR" />
+            <result column="archived_file_dir" property="archivedFileDir" jdbcType="VARCHAR" />
+        </collection>
+        <collection property="publications" ofType="Publication">
+            <id column="pubmed_id" property="pubmedId" jdbcType="INTEGER" />
+            <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+            <result column="journal_title" property="journalTitle" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="GsaBrowse" type="GsaBrowse">
+        <result column="craAccession" property="craAccession" jdbcType="VARCHAR"/>
+        <result column="craTitle" property="craTitle" jdbcType="VARCHAR"/>
+        <result column="prjAccession" property="prjAccession" jdbcType="VARCHAR"/>
+        <result column="sampleCount" property="sampleCount" jdbcType="INTEGER"/>
+        <result column="expCount" property="expCount" jdbcType="INTEGER"/>
+        <result column="runCount" property="runCount" jdbcType="INTEGER"/>
+        <result column="organization" property="organization" jdbcType="VARCHAR"/>
+        <result column="releaseTime" property="releaseTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="Cra" type="Cra">
+        <id column="cra_id" property="craId" jdbcType="INTEGER"/>
+        <result column="accession" property="craAccession" jdbcType="VARCHAR"/>
+        <result column="craUrl" property="craUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="FairList" type="FairList">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="publishDate" property="publishDate" jdbcType="VARCHAR"/>
+        <result column="downloadUrl" property="downloadUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <resultMap id="FairDetail" type="FairDetail">
+        <result column="accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="org" property="org" jdbcType="VARCHAR"/>
+        <result column="fileNumber" property="fileNumber" jdbcType="VARCHAR"/>
+        <result column="fileSize" property="fileSize" jdbcType="VARCHAR"/>
+        <result column="prjId" property="prjId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="Fund" type="Fund">
+        <result column="grantId" property="grantId" jdbcType="VARCHAR"/>
+        <result column="funder" property="funder" jdbcType="VARCHAR"/>
+        <result column="fundingName" property="fundingName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectRecordsByReleaseDate" parameterType="hashMap" resultMap="GSAForBioOne">
+      SELECT
+	    gsa.accession as gsa_accession,gsa.release_time as release_time,
+	    prj.accession as bioproject_accession,prj.title as bioproject_title,
+	    sample.accession as biosample_accession,sample.title as biosample_title,
+	    taxon.name_txt as taxon_name,taxon.tax_id as taxon_id,
+	    exp.accession as experiment_accession,
+	    platform.platform_name as platform,exp.lib_design as library_design,
+	    strategy.strategy_name as library_strategy,source.source_name as library_source,
+	    selection.selection_name as library_selection,exp.lib_layout as library_layout,exp.lib_insert_size as insert_size,
+	    exp.planned_read_length as planned_read_length,exp.planned_read_length_mate_1 as planned_read_length_mate_1,exp.planned_read_length_mate_2 as planned_read_length_mate_2,
+	    run.run_id as run_id,run.accession as run_accession,run.alias as title,
+	    run_type.run_data_type_name as run_data_type,data.run_file_id,data.run_file_name as run_file_name,data.archived_file_name as archived_file_name,data.archived_file_dir as archived_file_dir,data.md5 as md5,data.run_file_size as run_file_size,
+	    reference.reference_name as reference_accesembly_name,reference.url as reference_url,
+	    user.email as submitter_email,user.organization_standard as submitter_affiliation,concat(user.middle_name,user.last_name,' ',user.first_name) as submitter_name,
+	    publication.pubmed_id as pubmed_id,publication.article_title as article_title,publication.journal_title as journal_title
+      FROM
+	    cra gsa
+	    LEFT JOIN user on user.user_id=gsa.user_id
+	    LEFT JOIN experiment exp on exp.cra_id=gsa.cra_id and exp.status=3 and exp.release_state=2
+	    LEFT JOIN exp_platform platform on platform.platform_id = exp.platform_id
+	    LEFT JOIN exp_lib_strategy strategy on strategy.strategy_id=exp.strategy_id
+	    LEFT JOIN exp_lib_source source on source.source_id=exp.source_id
+	    LEFT JOIN exp_lib_selection selection on selection.selection_id=exp.selection_id
+	    LEFT JOIN run on run.exp_id=exp.exp_id and run.status=10 and run.release_state=2
+	    LEFT JOIN reference_file reference on reference.reference_id=run.reference_id
+	    LEFT JOIN run_data_file data on data.run_id=run.run_id and data.status=10
+	    LEFT JOIN run_data_type run_type on run_type.run_data_type_id=run.run_data_type_id
+	    LEFT JOIN project prj on prj.prj_id=exp.prj_id
+	    LEFT JOIN publication on publication.prj_id=prj.prj_id
+	    LEFT JOIN sample on sample.sample_id=exp.sample_id
+	    LEFT JOIN taxon_name taxon on taxon.tax_id=sample.taxon_id and taxon.name_class='scientific name'
+      WHERE
+        <![CDATA[gsa.status=3 and gsa.release_state=2 and gsa.release_time>=#{startTime} and gsa.release_time <= #{endTime} order by gsa.cra_id]]>
+    </select>
+    <select id="getGsaBrowseList"  resultMap="GsaBrowse">
+	  SELECT c.accession as craAccession,c.title as craTitle,c.release_time as releaseTime,p.accession as prjAccession,count(distinct t.accession) as sampleCount,count(e.exp_id) as expCount,count(distinct r.accession) as runCount,u.organization_standard as organization,
+		sub.first_name as sub_first_name,sub.middle_name as sub_middle_name,sub.last_name as sub_last_name,sub.email as sub_email,sub.organization as sub_organization
+		FROM cra c,experiment e ,sample t,project p,user u,submitter sub,run r
+		where t.sample_id = e.sample_id and e.cra_id = c.cra_id and e.exp_id=r.exp_id and p.prj_id=e.prj_id and u.user_id = c.user_id and e.status=3
+		and c.release_state = 2 AND c.status = 3  AND (c.is_controlled is null or c.is_controlled!=1) and c.submitter_id=sub.submitter_id group by c.cra_id ORDER BY c.release_time desc
+    </select>
+
+
+    <select id="getCraListBySampleId" parameterType="Int" resultMap="Cra">
+		SELECT
+			cra_id,accession,CONCAT('https://bigd.big.ac.cn/gsa/browse/',accession) as craUrl
+		FROM cra
+		WHERE
+			status=3 and release_state=2 and cra_id in (select distinct cra_id from experiment ex where ex.sample_id =#{sampleId} and ex.status=3 AND ex.release_state=2)
+    </select>
+
+    <select id="selectCraByProjectAccession" parameterType="String" resultMap="Cra">
+        SELECT
+            a.*,CONVERT (sum(b.run_file_size)/(1024*1024*1024),decimal(10,0)) as run_file_size,c.accession as pro_acc
+        FROM
+            project c
+                LEFT JOIN
+            run_data_file b ON b.prj_id=c.prj_id and b.status=10
+                LEFT JOIN
+            cra a ON a.cra_id=b.cra_id
+        WHERE
+            c.accession = #{accession}
+    </select>
+
+    <select id="getFairAccessionGsa" resultMap="FairList">
+    select c.accession as id,c.release_time as publishDate,CONCAT("https://ngdc.cncb.ac.cn/gsa/browsse/",c.accession) as downloadUrl from fair_dataset f,prj_grants pg,pro_grants pog,project p,cra c
+    where f.grant_id=pg.grant_ID and pog.grants_id=pg.grants_id and pog.prj_id=p.prj_id
+    and c.prj_id=p.prj_id and c.`status`=3 and c.release_state=2
+    group by c.accession
+    </select>
+
+    <select id="getFairDetailGsa" resultMap="FairDetail">
+    select c.prj_id as prjId,c.accession,c.release_time as releaseTime,c.title,c.description,
+    CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,CONCAT(u.first_name,' ',u.middle_name,' ',u.last_name) as userName,u.email,u.organization_standard as org
+    ,count(rdf.run_file_id) as fileNumber,sum(rdf.run_file_size/1024) as fileSize
+    from cra c,user u,run_data_file rdf
+    where c.accession=#{accession} and c.user_id=u.user_id and rdf.cra_id=c.cra_id and rdf.`status`=10 and rdf.release_state=2
+    </select>
+    <select id="getFundGsa" resultMap="Fund">
+    select prj.grant_ID as grantId,prj.program as funder,prj.grant_title as fundingName,p.prj_id,p.accession
+    from pro_grants pro ,prj_grants prj,project p where prj.agency='Chinese Academy of Sciences (CAS)'
+    and prj.grants_id=pro.grants_id
+    and p.prj_id=pro.prj_id and p.prj_id=#{prjId}
+    </select>
+</mapper>

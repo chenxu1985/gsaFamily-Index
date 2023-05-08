@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleAttrModelAnimalMapper">
+	 <resultMap id="SampleAttrModelAnimal" type="SampleAttrModelAnimal"> 
+		 <id column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		 <result column="breed" property="breed" jdbcType="VARCHAR" />
+		 <result column="strain" property="strain" jdbcType="VARCHAR" />
+		 <result column="age" property="age" jdbcType="VARCHAR" />
+		 <result column="age_unit" property="ageUnit" jdbcType="VARCHAR" />
+		 <result column="sex" property="sex" jdbcType="INTEGER" />
+		 <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR"/>
+		 <result column="tissue" property="tissue" jdbcType="VARCHAR"/>
+		 <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+		 <result column="birth_location" property="birthLocation" jdbcType="VARCHAR"/>
+		 <result column="breed_history" property="breedHistory" jdbcType="VARCHAR"/>
+		 <result column="breed_method" property="breedMethod" jdbcType="VARCHAR"/>
+		 <result column="cell_line" property="cellLine" jdbcType="VARCHAR"/>
+		 <result column="cell_subtype" property="cellSubtype" jdbcType="VARCHAR"/>
+		 <result column="cell_type" property="cellType" jdbcType="VARCHAR"/>
+		 <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+		 <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR"/>
+		 <result column="death_date" property="deathDate" jdbcType="DATE"/>
+		 <result column="dev_stage" property="devStage" jdbcType="VARCHAR"/>
+		 <result column="disease" property="disease" jdbcType="VARCHAR"/>
+		 <result column="disease_stage" property="diseaseStage" jdbcType="VARCHAR"/>
+		 <result column="genotype" property="genotype" jdbcType="VARCHAR" />
+		 <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+		 <result column="growth_protocol" property="growthProtocol" jdbcType="VARCHAR"/>
+		 <result column="health_state" property="healthState" jdbcType="VARCHAR"/>
+		 <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+		 <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+		 <result column="phenotype" property="phenotype" jdbcType="VARCHAR"/>
+		 <result column="type" property="type" jdbcType="VARCHAR"/>
+		 <result column="specimen_voucher" property="specimenVoucher" jdbcType="VARCHAR"/>
+		 <result column="storage_conditions" property="storageConditions" jdbcType="VARCHAR"/>
+		 <result column="stud_book_number" property="studbooknumber" jdbcType="VARCHAR"/>
+		 <result column="treatment" property="treatment" jdbcType="VARCHAR"/>
+		 <result column="add_attribute" property="addAttribute" jdbcType="VARCHAR" />
+	 </resultMap> 
+		
+	<select id="findBySampleId" parameterType="int" resultMap="SampleAttrModelAnimal">
+		SELECT *	FROM sample_attr_model_animal 	 WHERE sample_id=#{ sampleId }
+	</select>
+</mapper>
+  

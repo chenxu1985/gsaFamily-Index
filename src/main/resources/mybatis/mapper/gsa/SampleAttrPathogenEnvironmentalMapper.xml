@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleAttrPathogenEnvironmentalMapper">
+	 <resultMap id="SampleAttrPathogenEnvironmental" type="SampleAttrPathogenEnvironmental"> 
+		 <id column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		 <result column="isolate" property="isolate" jdbcType="VARCHAR" />
+		 <result column="strain" property="strain" jdbcType="VARCHAR" />
+		 <result column="collected_by" property="collectedBy" jdbcType="VARCHAR"/>
+		 <result column="collection_date" property="collectionDate" jdbcType="DATE"/>
+		 <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+		 <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+		 <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+		 <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR" />
+		 <result column="genotype" property="genotype" jdbcType="INTEGER" />
+		 <result column="passage_history" property="passageHistory" jdbcType="VARCHAR" />
+		 <result column="serovar" property="serovar" jdbcType="VARCHAR" />
+		 <result column="specimen_voucher" property="specimenVoucher" jdbcType="VARCHAR" />
+		 <result column="subgroup" property="subgroup" jdbcType="VARCHAR" />
+		 <result column="subtype" property="subtype" jdbcType="VARCHAR" />
+		 <result column="add_attribute" property="addAttribute" jdbcType="VARCHAR" />
+	 </resultMap> 
+	 
+	<select id="findBySampleId" parameterType="int" resultMap="SampleAttrPathogenEnvironmental">
+		SELECT *	FROM sample_attr_pathogen_environmental_food_other 	 WHERE sample_id=#{ sampleId }
+    </select>
+</mapper>

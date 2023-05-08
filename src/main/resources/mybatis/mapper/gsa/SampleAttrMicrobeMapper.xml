@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleAttrMicrobeMapper">
+	 <resultMap id="SampleAttrMicrobe" type="SampleAttrMicrobe"> 
+		 <id column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		 <result column="strain" property="strain" jdbcType="VARCHAR" />
+		 <result column="collection_date" property="collectionDate" jdbcType="DATE" />
+		 <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+		 <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+		 <result column="altitude" property="altitude" jdbcType="VARCHAR"/>
+		 <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR"/>
+		 <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR"/>
+		 <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+		 <result column="depth" property="depth" jdbcType="VARCHAR" />
+		 <result column="environment_biome" property="environmentBiome" jdbcType="VARCHAR" />
+		 <result column="genotype" property="genotype" jdbcType="VARCHAR" />
+		 <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+		 <result column="identified_by" property="identifiedBy" jdbcType="VARCHAR" />
+		 <result column="lab_host" property="labHost" jdbcType="VARCHAR" />
+		 <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+		 <result column="mating_type" property="matingType" jdbcType="VARCHAR"/>
+		 <result column="passage_history" property="passageHistory" jdbcType="VARCHAR" />
+		 <result column="sample_size" property="sampleSize" jdbcType="VARCHAR" />
+		 <result column="serotype" property="serotype" jdbcType="VARCHAR" />
+		 <result column="serovar" property="serovar" jdbcType="VARCHAR"/>
+		 <result column="specimen_voucher" property="specimenVoucher" jdbcType="VARCHAR"/>
+		 <result column="temperature" property="temperature" jdbcType="VARCHAR" />
+		 <result column="add_attribute" property="addAttribute" jdbcType="VARCHAR" />
+		 <result column="host_organism_id" property="hostTaxonId" jdbcType="INTEGER" />
+		 <result column="host_taxon_name" property="hostTaxonName" jdbcType="INTEGER" />
+	 </resultMap> 
+	 
+	<select id="findBySampleId" parameterType="int" resultMap="SampleAttrMicrobe">
+		SELECT  sa.*,tx.name_txt as host_taxon_name FROM sample_attr_microbe  sa
+        LEFT JOIN taxon_name tx ON tx.tax_id = sa.host_organism_id AND tx.name_class = 'scientific name'
+		WHERE sample_id=#{ sampleId }
+	</select>
+</mapper>
+  

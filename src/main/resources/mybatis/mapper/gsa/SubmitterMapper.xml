@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SubmitterMapper">
+    <resultMap id="Submitter" type="Submitter">
+        <id column="submitter_id" property="submitterId" jdbcType="INTEGER"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="middle_name" property="middleName" jdbcType="VARCHAR"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="email_secondary" property="emailSecondary" jdbcType="VARCHAR"/>
+        <result column="organization" property="organization" jdbcType="VARCHAR"/>
+        <result column="submit_organization_url" property="submitOrganizationUrl" jdbcType="VARCHAR"/>
+        <result column="department" property="department" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="fax" property="fax" jdbcType="VARCHAR"/>
+        <result column="street" property="street" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="VARCHAR"/>
+        <result column="postal_code" property="postalCode" jdbcType="INTEGER"/>
+        <association property="country" javaType="Country">
+            <id column="country_id" property="countryId" jdbcType="INTEGER"/>
+            <result column="country_name" property="countryName" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <insert id="insertHumanSubmitter" parameterType="Submitter">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="submitterId">
+            SELECT LAST_INSERT_ID() as submitterId
+        </selectKey>
+        insert into submitter (country_id, first_name, middle_name,
+        last_name, email, email_secondary,organization,
+        submit_organization_url, department, phone,
+        fax, street, city,
+        `state`, postal_code)
+        values (#{country.countryId,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, #{middleName,jdbcType=VARCHAR},
+        #{lastName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},#{emailSecondary,jdbcType=VARCHAR} ,#{organization,jdbcType=VARCHAR},
+        #{submitOrganizationUrl,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{fax,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+        #{state,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR})
+    </insert>
+
+
+</mapper>

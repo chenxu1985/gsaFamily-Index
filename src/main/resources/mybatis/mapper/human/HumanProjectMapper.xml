@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.human.HumanProjectMapper">
+    <resultMap id="ProjectTaxonomyHuman" type="ProjectTaxonomyHuman">
+        <result column="prj_accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="taxName" property="taxonomy" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getHumanTaxonomy" parameterType="Integer" resultMap="ProjectTaxonomyHuman">
+      select ss.prj_accession,GROUP_CONCAT(ss.taxName) as taxName
+      from (
+		select s.prj_accession,GROUP_CONCAT(DISTINCT json_extract(ss.attributes,'$.organism')) as taxName
+        from study s,sample ss where  ss.study_id=s.study_id and (s.package_id=4 or s.package_id=3) and s.`status`=3 and s.prj_id=#{prjId}
+		group by s.prj_id
+	    union
+		select s.prj_accession,'"Homo sapiens"' as taxName
+        from study s,sample ss where  ss.study_id=s.study_id and (s.package_id=1 or s.package_id=2) and s.`status`=3 and s.prj_id=#{prjId}
+		  ) ss
+		group by ss.prj_accession
+    </select>
+
+</mapper>

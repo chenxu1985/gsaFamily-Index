@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.omix.OmixProjectMapper">
+    <resultMap id="ProjectTaxonomyOmix" type="ProjectTaxonomyOmix">
+        <result column="prj_accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="taxName" property="taxonomy" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getOmixTaxonomy" parameterType="Integer" resultMap="ProjectTaxonomyOmix">
+        select o.prj_accession,GROUP_CONCAT(DISTINCT taxon.name_txt) as taxName from omix o,taxon_name taxon
+        where (o.`status`=1 or o.`status`=2 or o.`status`=5) and taxon.tax_id=o.tax_id and taxon.name_class='scientific name' and user_id not in (1,2) and o.prj_id=#{prjId}
+    </select>
+
+</mapper>

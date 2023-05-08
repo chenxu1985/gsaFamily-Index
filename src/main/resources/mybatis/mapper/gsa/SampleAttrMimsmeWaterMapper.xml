@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleAttrMimsmeWaterMapper">
+	 <resultMap id="SampleAttrMimsmeWater" type="SampleAttrMimsmeWater">
+		 <id column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		 <result column="collection_date" property="collectionDate" jdbcType="DATE"/>
+		 <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+		 <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+		 <result column="environment_biome" property="environmentBiome" jdbcType="VARCHAR" />
+		 <result column="environment_feature" property="environmentFeature" jdbcType="VARCHAR" />
+		 <result column="environment_material" property="environmentMaterial" jdbcType="VARCHAR" />
+		 <result column="depth" property="depth" jdbcType="VARCHAR" />
+		 <result column="alkalinity" property="alkalinity" jdbcType="VARCHAR" />
+		 <result column="alkyl_diethers" property="alkylDiethers" jdbcType="VARCHAR" />
+		 <result column="altitude" property="altitude" jdbcType="VARCHAR" />
+		 <result column="aminopeptidase_activity" property="aminopeptidaseActivity" jdbcType="VARCHAR" />
+		 <result column="ammonium" property="ammonium" jdbcType="VARCHAR" />
+		 <result column="atmospheric_data" property="atmosphericData" jdbcType="VARCHAR" />
+		 <result column="bacterial_production" property="bacterialProduction" jdbcType="VARCHAR" />
+		 <result column="bacterial_respiration" property="bacterialRespiration" jdbcType="VARCHAR" />
+		 <result column="bacterial_carbon_production" property="bacterialCarbonProduction" jdbcType="VARCHAR" />
+		 <result column="biomass" property="biomass" jdbcType="VARCHAR" />
+		 <result column="bishomohopanol" property="bishomohopanol" jdbcType="VARCHAR" />
+		 <result column="bromide" property="bromide" jdbcType="VARCHAR" />
+		 <result column="calcium" property="calcium" jdbcType="VARCHAR" />
+		 <result column="carbon_nitrogen_ratio" property="carbonNitrogenRatio" jdbcType="VARCHAR" />
+		 <result column="chemical_administration" property="chemicalAdministration" jdbcType="VARCHAR" />
+		 <result column="chloride" property="chloride" jdbcType="VARCHAR" />
+		 <result column="chlorophyll" property="chlorophyll" jdbcType="VARCHAR" />
+		 <result column="conductivity" property="conductivity" jdbcType="VARCHAR" />
+		 <result column="density" property="density" jdbcType="VARCHAR" />
+		 <result column="diether_lipids" property="dietherLipids" jdbcType="VARCHAR" />
+		 <result column="dissolved_carbon_dioxide" property="dissolvedCarbonDioxide" jdbcType="VARCHAR" />
+		 <result column="dissolved_hydrogen" property="dissolvedHydrogen" jdbcType="VARCHAR" />
+		 <result column="dissolved_inorganic_carbon" property="dissolvedInorganicCarbon" jdbcType="VARCHAR" />
+		 <result column="dissolved_inorganic_nitrogen" property="dissolvedInorganicNitrogen" jdbcType="VARCHAR" />
+		 <result column="dissolved_inorganic_phosphorus" property="dissolvedInorganicPhosphorus" jdbcType="VARCHAR" />
+		 <result column="dissolved_organic_carbon" property="dissolvedOrganicCarbon" jdbcType="VARCHAR" />
+		 <result column="dissolved_organic_nitrogen" property="dissolvedOrganicNitrogen" jdbcType="VARCHAR" />
+		 <result column="dissolved_oxygen" property="dissolvedOxygen" jdbcType="VARCHAR" />
+		 <result column="downward_par" property="downwardPar" jdbcType="VARCHAR" />
+		 <result column="elevation" property="elevation" jdbcType="VARCHAR" />
+		 <result column="fluorescence" property="fluorescence" jdbcType="VARCHAR" />
+		 <result column="glucosidase_activity" property="glucosidaseActivity" jdbcType="VARCHAR" />
+		 <result column="magnesium" property="magnesium" jdbcType="VARCHAR" />
+		 <result column="mean_friction_velocity" property="meanFrictionVelocity" jdbcType="VARCHAR" />
+		 <result column="mean_peak_friction_velocity" property="meanPeakFrictionVelocity" jdbcType="VARCHAR" />
+		 <result column="miscellaneous_parameter" property="miscellaneousParameter" jdbcType="VARCHAR" />
+		 <result column="n_alkanes" property="nAlkanes" jdbcType="VARCHAR" />
+		 <result column="nitrate" property="nitrate" jdbcType="VARCHAR" />
+		 <result column="nitrite" property="nitrite" jdbcType="VARCHAR" />
+		 <result column="nitrogen" property="nitrogen" jdbcType="VARCHAR" />
+		 <result column="organic_carbon" property="organicCarbon" jdbcType="VARCHAR" />
+		 <result column="organic_matter" property="organicMatter" jdbcType="VARCHAR" />
+		 <result column="organic_nitrogen" property="organicNitrogen" jdbcType="VARCHAR" />
+		 <result column="organism_count" property="organismCount" jdbcType="VARCHAR" />
+		 <result column="oxygenation_status" property="oxygenationStatus" jdbcType="VARCHAR" />
+		 <result column="particulate_organic_carbon" property="particulateOrganicCarbon" jdbcType="VARCHAR" />
+		 <result column="particulate_organic_nitrogen" property="particulateOrganicNitrogen" jdbcType="VARCHAR" />
+		 <result column="perturbation" property="perturbation" jdbcType="VARCHAR" />
+		 <result column="petroleum_hydrocarbon" property="petroleumHydrocarbon" jdbcType="VARCHAR" />
+		 <result column="ph" property="ph" jdbcType="VARCHAR" />
+		 <result column="phaeopigments" property="phaeopigments" jdbcType="VARCHAR" />
+		 <result column="phosphate" property="phosphate" jdbcType="VARCHAR" />
+		 <result column="phospholipid_fatty_acid" property="phospholipidFattyAcid" jdbcType="VARCHAR" />
+		 <result column="photon_flux" property="photonFlux" jdbcType="VARCHAR" />
+		 <result column="potassium" property="potassium" jdbcType="VARCHAR" />
+		 <result column="pressure" property="pressure" jdbcType="VARCHAR" />
+		 <result column="primary_production" property="primaryProduction" jdbcType="VARCHAR" />
+		 <result column="redox_potential" property="redoxPotential" jdbcType="VARCHAR" />
+		 <result column="salinity" property="salinity" jdbcType="VARCHAR" />
+		 <result column="sample_storage_duration" property="sampleStorageDuration" jdbcType="VARCHAR" />
+		 <result column="sample_storage_location" property="sampleStorageLocation" jdbcType="VARCHAR" />
+		 <result column="sample_storage_temperature" property="sampleStorageTemperature" jdbcType="VARCHAR" />
+		 <result column="silicate" property="silicate" jdbcType="VARCHAR" />
+		 <result column="sodium" property="sodium" jdbcType="VARCHAR" />
+		 <result column="soluble_reactive_phosphorus" property="solubleReactivePhosphorus" jdbcType="VARCHAR" />
+		 <result column="sulfate" property="sulfate" jdbcType="VARCHAR" />
+		 <result column="sulfide" property="sulfide" jdbcType="VARCHAR" />
+		 <result column="suspended_particulate_matter" property="suspendedParticulateMatter" jdbcType="VARCHAR" />
+		 <result column="temperature" property="temperature" jdbcType="VARCHAR" />
+		 <result column="tidal_stage" property="tidalStage" jdbcType="VARCHAR" />
+		 <result column="total_depth_water_column" property="totalDepthWaterColumn" jdbcType="VARCHAR" />
+		 <result column="total_dissolved_nitrogen" property="totalDissolvedNitrogen" jdbcType="VARCHAR" />
+		 <result column="total_inorganic_nitrogen" property="totalInorganicNitrogen" jdbcType="VARCHAR" />
+		 <result column="total_nitrogen" property="totalNitrogen" jdbcType="VARCHAR" />
+		 <result column="total_particulate_carbon" property="totalParticulateCarbon" jdbcType="VARCHAR" />
+		 <result column="total_phosphorus" property="totalPhosphorus" jdbcType="VARCHAR" />
+		 <result column="water_current" property="waterCurrent" jdbcType="VARCHAR" />
+		 <result column="reference_biomaterial" property="referenceBiomaterial" jdbcType="VARCHAR" />
+		 <result column="sample_collection_device" property="sampleCollectionDevice" jdbcType="VARCHAR" />
+		 <result column="sample_material_processing" property="sampleMaterialProcessing" jdbcType="VARCHAR" />
+		 <result column="sample_size" property="sampleSize" jdbcType="VARCHAR" />
+		 <result column="sample_volume_weight_dna_extraction" property="sampleVolumeWeightDnaExtraction" jdbcType="VARCHAR" />
+		 <result column="source_material_identifiers" property="sourceMaterialIdentifiers" jdbcType="VARCHAR" />
+		 <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+		 <result column="description" property="description" jdbcType="VARCHAR" />
+	 </resultMap>
+
+	<select id="findBySampleId" parameterType="int" resultMap="SampleAttrMimsmeWater">
+		SELECT  * FROM sample_attr_mimsme_water	 WHERE sample_id=#{ sampleId }
+	</select>
+</mapper>

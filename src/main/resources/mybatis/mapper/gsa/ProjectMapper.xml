@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.ProjectMapper" >
+    <resultMap id="Project" type="Project">
+        <id column="prj_id" property="prjId" jdbcType="INTEGER" />
+        <result column="accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="release_state" property="releaseState" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ProjectTaxonomy" type="ProjectTaxonomy">
+        <result column="prj_accession" property="accession" jdbcType="VARCHAR"/>
+        <result column="taxName" property="taxonomy" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="listProjectsByUserId" parameterType="int"  resultMap="Project">
+          SELECT prj_id,accession,title,user_id,status  FROM project
+        WHERE user_id = #{userId} AND accession != '' and status in (2,3)
+        ORDER BY accession DESC
+    </select>
+    <update id="updateReleaseStateById" parameterType="int">
+        UPDATE project SET release_state = 2, modify_time = NOW()
+        WHERE prj_id = #{prjId}
+    </update>
+    <select id="selectUserId" parameterType="String" resultType="Integer">
+        SELECT user_id FROM user WHERE email = #{email} AND is_deleted = 0
+    </select>
+    <select id="findProjectById" parameterType="INTEGER" resultMap="Project">
+		SELECT * FROM project prj
+			where prj.prj_id = #{ prjId }
+	</select>
+    <update id="releaseProject" parameterType="Project">
+		UPDATE project set release_time=#{releaseTime}, release_state=#{releaseState},modify_time = NOW() WHERE prj_id=#{ prjId }
+	</update>
+    <select id="getProjectByUuid" parameterType="Project" resultMap="Project">
+        SELECT p.*
+        from project p,user u
+        where p.status!=5 and p.user_id=u.user_id and u.cas_user_id = #{casUserId} and p.accession=#{accession}
+    </select>
+    <select id="findProjectByAccession" parameterType="String" resultMap="Project">
+        SELECT p.*
+        from project p
+        where  p.accession=#{accession}
+    </select>
+
+    <select id="getReleaseList"  resultMap="Project">
+        select * from project where status=3 and release_state=2
+    </select>
+
+    <select id="getTaxonomy" parameterType="Integer" resultMap="ProjectTaxonomy">
+        select p.prj_id,p.accession,GROUP_CONCAT(DISTINCT taxon.name_txt) as taxName
+        from sample s,project p,taxon_name taxon where s.taxon_id=taxon.tax_id and taxon.name_class='scientific name'
+        and s.prj_id=p.prj_id and s.`status`=3 and s.prj_id=#{prjId}
+    </select>
+    <update id="releaseProjectWeb" parameterType="Project">
+		UPDATE project set status=#{status},release_time=#{releaseTime}, release_state=#{releaseState},modify_time = NOW() WHERE prj_id=#{ prjId }
+	</update>
+
+</mapper>
