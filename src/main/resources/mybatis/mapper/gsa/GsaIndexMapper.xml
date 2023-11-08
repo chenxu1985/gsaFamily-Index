@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.GsaIndexMapper">
+    <resultMap id="Experiment" type="cn.ac.big.bigd.webservice.model.index.Experiment">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="downloadable" property="downloadable" jdbcType="VARCHAR" />
+        <result column="fileType" property="fileType" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="libraryName" property="libraryName" jdbcType="VARCHAR" />
+        <result column="libDesign" property="libDesign" jdbcType="VARCHAR" />
+        <result column="libLayout" property="libLayout" jdbcType="VARCHAR" />
+        <result column="platform" property="platform" jdbcType="VARCHAR" />
+        <result column="source" property="source" jdbcType="VARCHAR" />
+        <result column="strategy" property="strategy" jdbcType="VARCHAR" />
+        <result column="selection" property="selection" jdbcType="VARCHAR" />
+        <result column="insertSize" property="insertSize" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="dataset" property="dataset" jdbcType="VARCHAR" />
+        <result column="projectAcc" property="projectAcc" jdbcType="VARCHAR" />
+        <result column="projectTitle" property="projectTitle" jdbcType="VARCHAR" />
+        <result column="projectDesc" property="projectDesc" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="sampleName" property="sampleName" jdbcType="VARCHAR" />
+        <result column="sampleTitle" property="sampleTitle" jdbcType="VARCHAR" />
+        <result column="sampleDesc" property="sampleDesc" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="taxId" property="taxId" jdbcType="VARCHAR" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="properties" property="properties" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="Gsa" type="cn.ac.big.bigd.webservice.model.index.Gsa">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="downloadable" property="downloadable" jdbcType="VARCHAR" />
+        <result column="fileType" property="fileType" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="platform" property="platform" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="dataset" property="dataset" jdbcType="VARCHAR" />
+        <result column="projectAcc" property="projectAcc" jdbcType="VARCHAR" />
+        <result column="projectTitle" property="projectTitle" jdbcType="VARCHAR" />
+        <result column="projectDesc" property="projectDesc" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="Run" type="cn.ac.big.bigd.webservice.model.index.Run">
+        <result column="runAcc" property="runAcc" jdbcType="VARCHAR" />
+        <result column="expAcc" property="expAcc" jdbcType="VARCHAR" />
+        <result column="downloadPath" property="downloadPath" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getExperiment" resultMap="Experiment" useCache="true">
+        select 'NGDC' as center,'Experiment' as type,e.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rr.run_data_type_name),0) as fileType,
+               e.title as title,e.lib_name as libraryName,e.lib_design as libDesign,ep.platform_name as platform,elso.source_name as source,elst.strategy_name as strategy
+                ,els.selection_name as selection,e.lib_insert_size as insertSize,e.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc,p.title as projectTitle
+                ,p.description as projectDesc,s.accession as sampleAcc,s.name as sampleName,s.title as sampleTitle,s.public_description as sampleDesc,st.sample_type_name as sampleType,
+               s.taxon_id as taxId,t.name_txt as organism
+        from cra c ,project p ,sample s,sample_type st,taxon_name t,exp_platform ep,exp_lib_selection els,exp_lib_source elso,exp_lib_strategy elst,experiment e
+        LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
+        where e.`status`=3 and e.release_state=2 and c.cra_id = e.cra_id and c.`status`=3 and c.release_state=2
+          and p.prj_id = e.prj_id and p.`status`=3 and p.release_state=2 and s.sample_id=e.sample_id and s.sample_type_id=st.sample_type_id
+          and s.taxon_id = t.tax_id and t.name_class='scientific name' and ep.platform_id = e.platform_id and els.selection_id = e.selection_id
+          and  elso.source_id = e.source_id and elst.strategy_id = e.strategy_id
+        group by e.accession
+    </select>
+    <select id="getGsa" resultMap="Gsa" useCache="true">
+        select 'NGDC' as center,'GSA' as type,c.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
+             ,c.title as title,IFNULL(GROUP_CONCAT(DISTINCT ep.platform_name),0) as platform,c.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc
+             ,p.title as projectTitle,p.description as projectDesc
+        from run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c
+        where c.`status`=3 and c.release_state=2 and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
+          and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id
+        group by c.accession
+    </select>
+    <select id="getRun" resultMap="Gsa" useCache="true">
+        select r.accession as runAcc,e.accession as expAcc
+        ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
+                            when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
+                            when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
+        end)) as downloadPath
+        from run r,experiment e,run_data_file rdf,cra c
+        where r.`status`=10 and r.release_state=2 and e.exp_id=r.exp_id and r.run_id=rdf.run_id and r.cra_id=c.cra_id
+        group by r.accession
+    </select>
+</mapper>
