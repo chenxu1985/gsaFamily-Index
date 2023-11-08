@@ -75,7 +75,7 @@
           and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id
         group by c.accession
     </select>
-    <select id="getRun" resultMap="Gsa" useCache="true">
+    <select id="getRun" resultMap="Run" useCache="true">
         select r.accession as runAcc,e.accession as expAcc
         ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
                             when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
