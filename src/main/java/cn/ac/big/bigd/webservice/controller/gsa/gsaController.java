@@ -45,7 +45,7 @@ public class gsaController {
             file.delete();
         }
         FileOutputStream fos;
-        System.out.println("GSA 索引开始生成");
+        System.out.println("GSA 索引开始生成 "+new Date());
         try {
             fos = new FileOutputStream(file);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
@@ -79,7 +79,7 @@ public class gsaController {
             }
             writer.flush();
             writer.close();
-            System.out.println("GSA 索引生成完毕");
+            System.out.println("GSA 索引生成完毕 "+new Date());
         } catch (Exception e){
             e.printStackTrace();
         }

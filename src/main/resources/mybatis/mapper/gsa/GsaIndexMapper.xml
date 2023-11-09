@@ -54,12 +54,12 @@
 
     <select id="getExperiment" resultMap="Experiment" useCache="true">
         select 'NGDC' as center,'Experiment' as type,e.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rr.run_data_type_name),0) as fileType,
-               e.title as title,e.lib_name as libraryName,e.lib_design as libDesign,ep.platform_name as platform,elso.source_name as source,elst.strategy_name as strategy
+               e.title as title,e.lib_name as libraryName,e.lib_design as libDesign,(case when e.lib_layout=1 then 'Single' when e.lib_layout=2 then 'Paired' end) as libLayout,ep.platform_name as platform,elso.source_name as source,elst.strategy_name as strategy
                 ,els.selection_name as selection,e.lib_insert_size as insertSize,e.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc,p.title as projectTitle
                 ,p.description as projectDesc,s.accession as sampleAcc,s.name as sampleName,s.title as sampleTitle,s.public_description as sampleDesc,st.sample_type_name as sampleType,
                s.taxon_id as taxId,t.name_txt as organism
         from cra c ,project p ,sample s,sample_type st,taxon_name t,exp_platform ep,exp_lib_selection els,exp_lib_source elso,exp_lib_strategy elst,experiment e
-        LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
+                                                                                                                                                        LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
         where e.`status`=3 and e.release_state=2 and c.cra_id = e.cra_id and c.`status`=3 and c.release_state=2
           and p.prj_id = e.prj_id and p.`status`=3 and p.release_state=2 and s.sample_id=e.sample_id and s.sample_type_id=st.sample_type_id
           and s.taxon_id = t.tax_id and t.name_class='scientific name' and ep.platform_id = e.platform_id and els.selection_id = e.selection_id
