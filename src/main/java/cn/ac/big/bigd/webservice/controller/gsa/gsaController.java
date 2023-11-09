@@ -61,6 +61,7 @@ public class gsaController {
                 writer.write(JSON.toJSONString(experiment).replaceAll("\n", ""));
                 writer.write("\n");
             }
+            System.out.println("Experiment 生成索引数量："+experimentList.size());
             System.out.println("Run");
             List<Run> runList = this.gsaIndexMapper.getRun();
             for(Run run:runList){
@@ -69,14 +70,16 @@ public class gsaController {
                 writer.write(JSON.toJSONString(run).replaceAll("\n", ""));
                 writer.write("\n");
             }
-            System.out.println("GSA");
+            System.out.println("Run 生成索引数量："+runList.size());
+            System.out.println("CRA");
             List<Gsa> gsaList = this.gsaIndexMapper.getGsa();
             for(Gsa gsa:gsaList){
-                writer.write("GSA");
+                writer.write("CRA");
                 writer.write("\t");
                 writer.write(JSON.toJSONString(gsa).replaceAll("\n", ""));
                 writer.write("\n");
             }
+            System.out.println("CRA 生成索引数量："+gsaList.size());
             writer.flush();
             writer.close();
             System.out.println("GSA 索引生成完毕 "+new Date());
