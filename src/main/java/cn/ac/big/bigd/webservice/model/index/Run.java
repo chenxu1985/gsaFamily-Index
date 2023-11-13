@@ -7,6 +7,7 @@ public class Run {
     private String runAcc;
     private String expAcc;
     private String downloadPath;
+    private String url;
 
     public String getRunAcc() {
         return runAcc;
@@ -30,5 +31,13 @@ public class Run {
 
     public void setDownloadPath(String downloadPath) {
         this.downloadPath = downloadPath;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

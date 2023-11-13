@@ -16,6 +16,8 @@ public class Gsa {
     private String projectAcc;
     private String projectTitle;
     private String projectDesc;
+    private String releaseState;
+    private String url;
 
     public String getCenter() {
         return center;
@@ -111,5 +113,21 @@ public class Gsa {
 
     public void setProjectDesc(String projectDesc) {
         this.projectDesc = projectDesc;
+    }
+
+    public String getReleaseState() {
+        return releaseState;
+    }
+
+    public void setReleaseState(String releaseState) {
+        this.releaseState = releaseState;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

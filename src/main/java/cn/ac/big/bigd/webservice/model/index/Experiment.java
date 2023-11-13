@@ -31,6 +31,8 @@ public class Experiment {
     private String taxId;
     private String organism;
     private String properties;
+    private String releaseState;
+    private String url;
 
     public String getCenter() {
         return center;
@@ -246,5 +248,21 @@ public class Experiment {
 
     public void setProperties(String properties) {
         this.properties = properties;
+    }
+
+    public String getReleaseState() {
+        return releaseState;
+    }
+
+    public void setReleaseState(String releaseState) {
+        this.releaseState = releaseState;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

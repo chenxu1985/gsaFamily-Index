@@ -29,6 +29,8 @@
         <result column="taxId" property="taxId" jdbcType="VARCHAR" />
         <result column="organism" property="organism" jdbcType="VARCHAR" />
         <result column="properties" property="properties" jdbcType="VARCHAR" />
+        <result column="releaseState" property="releaseState" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="Gsa" type="cn.ac.big.bigd.webservice.model.index.Gsa">
@@ -44,12 +46,15 @@
         <result column="projectAcc" property="projectAcc" jdbcType="VARCHAR" />
         <result column="projectTitle" property="projectTitle" jdbcType="VARCHAR" />
         <result column="projectDesc" property="projectDesc" jdbcType="VARCHAR" />
+        <result column="releaseState" property="releaseState" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="Run" type="cn.ac.big.bigd.webservice.model.index.Run">
         <result column="runAcc" property="runAcc" jdbcType="VARCHAR" />
         <result column="expAcc" property="expAcc" jdbcType="VARCHAR" />
         <result column="downloadPath" property="downloadPath" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
     </resultMap>
 
     <select id="getExperiment" resultMap="Experiment" useCache="true">
@@ -57,7 +62,7 @@
                e.title as title,e.lib_name as libraryName,e.lib_design as libDesign,(case when e.lib_layout=1 then 'Single' when e.lib_layout=2 then 'Paired' end) as libLayout,ep.platform_name as platform,elso.source_name as source,elst.strategy_name as strategy
                 ,els.selection_name as selection,e.lib_insert_size as insertSize,e.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc,p.title as projectTitle
                 ,p.description as projectDesc,s.accession as sampleAcc,s.name as sampleName,s.title as sampleTitle,s.public_description as sampleDesc,st.sample_type_name as sampleType,
-               s.taxon_id as taxId,t.name_txt as organism
+               s.taxon_id as taxId,t.name_txt as organism,e.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",e.accession) as url
         from cra c ,project p ,sample s,sample_type st,taxon_name t,exp_platform ep,exp_lib_selection els,exp_lib_source elso,exp_lib_strategy elst,experiment e
                                                                                                                                                         LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
         where e.`status`=3 and e.release_state=2 and c.cra_id = e.cra_id and c.`status`=3 and c.release_state=2
@@ -69,18 +74,19 @@
     <select id="getGsa" resultMap="Gsa" useCache="true">
         select 'NGDC' as center,'GSA' as type,c.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
              ,c.title as title,IFNULL(GROUP_CONCAT(DISTINCT ep.platform_name),0) as platform,c.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc
-             ,p.title as projectTitle,p.description as projectDesc
+             ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url
         from run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c
-        where c.`status`=3 and c.release_state=2 and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
+        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
           and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id
         group by c.accession
     </select>
     <select id="getRun" resultMap="Run" useCache="true">
         select r.accession as runAcc,e.accession as expAcc
-        ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
-                            when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
-                            when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
-        end)) as downloadPath
+             ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
+                                 when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
+                                 when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
+            end)) as downloadPath
+             ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",r.accession) as url
         from run r,experiment e,run_data_file rdf,cra c
         where r.`status`=10 and r.release_state=2 and e.exp_id=r.exp_id and r.run_id=rdf.run_id and r.cra_id=c.cra_id
         group by r.accession
