@@ -33,6 +33,15 @@ public class Experiment {
     private String properties;
     private String releaseState;
     private String url;
+    private String createTime;
+    private String submitter;
+    private String organization;
+    private String plannedReadLengthMate1;
+    private String plannedReadLengthMate2;
+    private String libNominalSize;
+    private String libNominalStandardDeviation;
+    private String plannedReadLength;
+    private String plannedNumberOfCycles;
 
     public String getCenter() {
         return center;
@@ -264,5 +273,77 @@ public class Experiment {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getPlannedReadLengthMate1() {
+        return plannedReadLengthMate1;
+    }
+
+    public void setPlannedReadLengthMate1(String plannedReadLengthMate1) {
+        this.plannedReadLengthMate1 = plannedReadLengthMate1;
+    }
+
+    public String getPlannedReadLengthMate2() {
+        return plannedReadLengthMate2;
+    }
+
+    public void setPlannedReadLengthMate2(String plannedReadLengthMate2) {
+        this.plannedReadLengthMate2 = plannedReadLengthMate2;
+    }
+
+    public String getLibNominalSize() {
+        return libNominalSize;
+    }
+
+    public void setLibNominalSize(String libNominalSize) {
+        this.libNominalSize = libNominalSize;
+    }
+
+    public String getLibNominalStandardDeviation() {
+        return libNominalStandardDeviation;
+    }
+
+    public void setLibNominalStandardDeviation(String libNominalStandardDeviation) {
+        this.libNominalStandardDeviation = libNominalStandardDeviation;
+    }
+
+    public String getPlannedReadLength() {
+        return plannedReadLength;
+    }
+
+    public void setPlannedReadLength(String plannedReadLength) {
+        this.plannedReadLength = plannedReadLength;
+    }
+
+    public String getPlannedNumberOfCycles() {
+        return plannedNumberOfCycles;
+    }
+
+    public void setPlannedNumberOfCycles(String plannedNumberOfCycles) {
+        this.plannedNumberOfCycles = plannedNumberOfCycles;
     }
 }
