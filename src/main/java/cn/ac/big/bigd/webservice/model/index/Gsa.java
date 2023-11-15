@@ -18,6 +18,9 @@ public class Gsa {
     private String projectDesc;
     private String releaseState;
     private String url;
+    private String createTime;
+    private String submitter;
+    private String organization;
 
     public String getCenter() {
         return center;
@@ -129,5 +132,29 @@ public class Gsa {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 }
