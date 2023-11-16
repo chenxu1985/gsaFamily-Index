@@ -1,5 +1,8 @@
 package cn.ac.big.bigd.webservice.model.index;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chenx on 2023-11-08.
  */
@@ -8,12 +11,14 @@ public class Experiment {
     private String type;
     private String accession;
     private String downloadable;
-    private String fileType;
+    private transient String fileType;
+    private List<FileType> fileTypes;
     private String title;
     private String libraryName;
     private String libDesign;
     private String libLayout;
-    private String platform;
+    private transient String platform;
+    private List<Platform> platforms;
     private String source;
     private String strategy;
     private String selection;
@@ -81,6 +86,7 @@ public class Experiment {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+        this.setFileTypes(this.fileType);
     }
 
     public String getTitle() {
@@ -121,6 +127,7 @@ public class Experiment {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+        this.setPlatforms(this.platform);
     }
 
     public String getSource() {
@@ -345,5 +352,43 @@ public class Experiment {
 
     public void setPlannedNumberOfCycles(String plannedNumberOfCycles) {
         this.plannedNumberOfCycles = plannedNumberOfCycles;
+    }
+
+    public void setPlatforms(String platforms) {
+        String[] plats = platforms.split(",");
+        List<Platform> platformList = new ArrayList<>();
+        for(String p:plats){
+            Platform pf = new Platform();
+            pf.setPlatform(p);
+            platformList.add(pf);
+        }
+        this.platforms = platformList;
+    }
+
+    public void setFileTypes(String fileTypes) {
+        String[] files = fileTypes.split(",");
+        List<FileType> fileTypeList = new ArrayList<>();
+        for(String f:files){
+            FileType ft = new FileType();
+            ft.setFileType(f);
+            fileTypeList.add(ft);
+        }
+        this.fileTypes = fileTypeList;
+    }
+
+    public List<FileType> getFileTypes() {
+        return fileTypes;
+    }
+
+    public void setFileTypes(List<FileType> fileTypes) {
+        this.fileTypes = fileTypes;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
     }
 }

@@ -1,5 +1,8 @@
 package cn.ac.big.bigd.webservice.model.index;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chenx on 2023-11-08.
  */
@@ -8,9 +11,11 @@ public class Gsa {
     private String type;
     private String accession;
     private String downloadable;
-    private String fileType;
+    private transient String fileType;
+    private List<FileType> fileTypes;
     private String title;
-    private String platform;
+    private transient String platform;
+    private List<Platform> platforms;
     private String releaseTime;
     private String dataset;
     private String projectAcc;
@@ -60,6 +65,7 @@ public class Gsa {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+        this.setFileTypes(this.fileType);
     }
 
     public String getTitle() {
@@ -76,6 +82,7 @@ public class Gsa {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+        this.setPlatforms(this.platform);
     }
 
     public String getReleaseTime() {
@@ -156,5 +163,34 @@ public class Gsa {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public List<FileType> getFileTypes() {
+        return fileTypes;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
+    public void setPlatforms(String platforms) {
+        String[] plats = platforms.split(",");
+        List<Platform> platformList = new ArrayList<>();
+        for(String p:plats){
+            Platform pf = new Platform();
+            pf.setPlatform(p);
+            platformList.add(pf);
+        }
+        this.platforms = platformList;
+    }
+
+    public void setFileTypes(String fileTypes) {
+        String[] files = fileTypes.split(",");
+        List<FileType> fileTypeList = new ArrayList<>();
+        for(String f:files){
+            FileType ft = new FileType();
+            ft.setFileType(f);
+            fileTypeList.add(ft);
+        }
+        this.fileTypes = fileTypeList;
     }
 }
