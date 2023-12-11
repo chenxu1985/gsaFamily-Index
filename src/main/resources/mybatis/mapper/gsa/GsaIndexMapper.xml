@@ -84,7 +84,7 @@
         group by e.accession
     </select>
     <select id="getGsa" resultMap="Gsa" useCache="true">
-        select 'NGDC' as center,'GSA' as type,c.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
+        select 'NGDC' as center,'GSA' as type,c.accession as accession,'0' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
              ,c.title as title,IFNULL(GROUP_CONCAT(DISTINCT ep.platform_name),0) as platform,c.release_time as releaseTime,p.accession as projectAcc
              ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,
             u.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization
