@@ -59,6 +59,7 @@ public class sraController {
             file.delete();
         }
         FileOutputStream fos;
+        String code = "ngdcgsa2023";
         System.out.println("INSDC 索引开始生成 "+new Date());
         System.out.println("可下载实验编号加载开始 "+new Date());
         //select experiment_second_accession from run where is_local=1 group by experiment_second_accession
@@ -97,7 +98,6 @@ public class sraController {
         //select second_accession,name,title,public_description,model,taxon_id,taxon_name from sample
         //由于存在\t的情况选用解析xml
         HashMap sampleMapNew = new HashMap();
-        String code = "ngdcgsa2023";
         String samplePath1 = "/data/gsagroup/index/sample1.xml";
         String samplePath2 = "/data/gsagroup/index/sample2.xml";
         String samplePath3 = "/data/gsagroup/index/sample3.xml";
@@ -436,7 +436,7 @@ public class sraController {
                 expObj.setOrganization(organization);
                 expObj.setLibNominalSize(libNominalSize);
                 expObj.setLibNominalStandardDeviation(libNominalStandardDeviation);
-                writer.write(JSON.toJSONString(exp).replaceAll("\n", ""));
+                writer.write(JSON.toJSONString(expObj).replaceAll("\n", ""));
                 writer.write("\n");
                 expCount++;
             }
