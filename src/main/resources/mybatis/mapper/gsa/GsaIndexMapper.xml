@@ -109,4 +109,43 @@
         from cra c,experiment e,run r where c.cra_id=e.cra_id and r.cra_id=c.cra_id and c.accession=#{acc} and c.`status`=3
         group by c.cra_id
     </select>
+
+    <select id="getExperimentByCraAcc" resultMap="Experiment" useCache="true" parameterType="String">
+        select 'NGDC' as center,'Experiment' as type,e.accession as accession,'1' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rr.run_data_type_name),0) as fileType,
+            e.title as title,e.lib_name as libraryName,e.lib_design as libDesign,(case when e.lib_layout=1 then 'Single' when e.lib_layout=2 then 'Paired' end) as libLayout,ep.platform_name as platform,elso.source_name as source,elst.strategy_name as strategy
+             ,els.selection_name as selection,e.lib_insert_size as insertSize,e.release_time as releaseTime,c.accession as dataset,p.accession as projectAcc,p.title as projectTitle
+             ,p.description as projectDesc,s.accession as sampleAcc,s.name as sampleName,s.title as sampleTitle,s.public_description as sampleDesc,st.sample_type_name as sampleType,
+            s.taxon_id as taxId,t.name_txt as organism,e.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",e.accession) as url
+             ,e.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization,e.planned_read_length_mate_1 as plannedReadLengthMate1
+             ,e.planned_read_length_mate_2 as plannedReadLengthMate2,e.lib_nominal_size as libNominalSize,e.lib_nominal_standard_deviation as libNominalStandardDeviation,e.planned_read_length
+            as plannedReadLength,e.planned_number_of_cycles as plannedNumberOfCycles
+        from user u,cra c ,project p ,sample s,sample_type st,taxon_name t,exp_platform ep,exp_lib_selection els,exp_lib_source elso,exp_lib_strategy elst,experiment e
+                                                                                                                                                               LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
+        where e.`status`=3 and e.release_state=2 and c.cra_id = e.cra_id and c.`status`=3 and c.release_state=2
+          and p.prj_id = e.prj_id and p.`status`=3 and p.release_state=2 and s.sample_id=e.sample_id and s.sample_type_id=st.sample_type_id
+          and s.taxon_id = t.tax_id and t.name_class='scientific name' and ep.platform_id = e.platform_id and els.selection_id = e.selection_id
+          and  elso.source_id = e.source_id and elst.strategy_id = e.strategy_id and u.user_id=e.user_id and c.accession=#{acc}
+        group by e.accession
+    </select>
+    <select id="getGsaByCraAcc" resultMap="Gsa" useCache="true" parameterType="String">
+        select 'NGDC' as center,'GSA' as type,c.accession as accession,'0' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
+             ,c.title as title,IFNULL(GROUP_CONCAT(DISTINCT ep.platform_name),0) as platform,c.release_time as releaseTime,p.accession as projectAcc
+             ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,
+            u.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization
+        from user u,run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c
+        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
+          and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id and u.user_id=c.user_id  and c.accession=#{acc}
+        group by c.accession
+    </select>
+    <select id="getRunByCraAcc" resultMap="Run" useCache="true" parameterType="String">
+        select 'Run' as type,r.accession as runAcc,e.accession as expAcc
+             ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
+                                 when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
+                                 when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
+            end)) as downloadPath,GROUP_CONCAT(rdf.archived_file_name) as fileName,GROUP_CONCAT(rdf.run_file_size) as fileSize
+             ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",r.accession) as url
+        from run r,experiment e,run_data_file rdf,cra c
+        where r.`status`=10 and r.release_state=2 and e.exp_id=r.exp_id and r.run_id=rdf.run_id and r.cra_id=c.cra_id and c.accession=#{acc}
+        group by r.accession
+    </select>
 </mapper>

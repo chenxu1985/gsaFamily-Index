@@ -155,4 +155,74 @@ public class gsaController {
         }
         return result;
     }
+
+    //添加索引 0为失败，1为成功
+    @RequestMapping("/addGsqCRA/{accession}")
+    public int addGsqCRA(@PathVariable(value = "accession") String accession) throws IOException {
+        int result = 0;
+        Boolean strResult = true;
+        strResult = accession.matches("^CRA\\d{6}$");
+        if(strResult){
+            String fileName = "/data/gsagroup/index/add/CRA/"+accession+".json";
+//            String fileName = "/Users/laphael/Desktop/"+accession+".json";
+            File addJsonFile = new File(fileName);
+            addJsonFile.createNewFile();
+            FileWriter addJsonWriter = new FileWriter(addJsonFile,true);
+            BufferedWriter addJson = new BufferedWriter(addJsonWriter);
+            System.out.println("CRA");
+            Gsa gsa = this.gsaIndexMapper.getGsaByCraAcc(accession);
+            addJson.write("CRA");
+            addJson.write("\t");
+            addJson.write(JSON.toJSONString(gsa).replaceAll("\n", ""));
+            addJson.write("\n");
+            System.out.println("Experiment");
+            List<Experiment> experimentList = this.gsaIndexMapper.getExperimentByCraAcc(accession);
+            for(Experiment experiment:experimentList){
+                addJson.write("EXPERIMENT");
+                addJson.write("\t");
+                addJson.write(JSON.toJSONString(experiment).replaceAll("\n", ""));
+                addJson.write("\n");
+            }
+            System.out.println("Experiment 生成索引数量："+experimentList.size());
+            System.out.println("Run");
+            List<Run> runList = this.gsaIndexMapper.getRunByCraAcc(accession);
+            for(Run run:runList){
+                addJson.write("Run");
+                addJson.write("\t");
+                addJson.write(JSON.toJSONString(run).replaceAll("\n", ""));
+                addJson.write("\n");
+            }
+            System.out.println("Run 生成索引数量："+runList.size());
+            addJson.close();
+            Process p =null;
+            String[] arrP = new String[]{"java","-cp","/data/gsagroup/index/gsaSearchTools.jar","IndexAdd",fileName};
+            for(String a:arrP){
+                System.out.println(a);
+            }
+            try {
+                p = Runtime.getRuntime().exec(arrP);
+                BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                String s;
+                System.out.println("标准输出:");
+                while ((s = stdInput.readLine()) != null) {
+                    System.out.println(s);
+                }
+
+                System.out.println("错误输出:");
+                while ((s = stdError.readLine()) != null) {
+                    System.out.println(s);
+                }
+                p.waitFor();
+            } catch (InterruptedException e) {
+                return result;
+            }
+            p.destroy();
+            result=1;
+        } else {
+            result=0;
+        }
+        return result;
+    }
 }

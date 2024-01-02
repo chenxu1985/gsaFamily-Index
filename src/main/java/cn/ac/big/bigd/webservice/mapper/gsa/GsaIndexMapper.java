@@ -12,4 +12,7 @@ public interface GsaIndexMapper {
     List<Gsa> getGsa();
     List<Run> getRun();
     CraAccessions getAccessionsByCraAcc(String acc);
+    Gsa getGsaByCraAcc(String acc);
+    List<Experiment> getExperimentByCraAcc(String acc);
+    List<Run> getRunByCraAcc(String acc);
 }
