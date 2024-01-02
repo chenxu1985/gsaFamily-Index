@@ -1,12 +1,10 @@
 package cn.ac.big.bigd.webservice.controller.gsa;
 
 import cn.ac.big.bigd.webservice.mapper.gsa.GsaIndexMapper;
-import cn.ac.big.bigd.webservice.model.index.Database;
-import cn.ac.big.bigd.webservice.model.index.Experiment;
-import cn.ac.big.bigd.webservice.model.index.Gsa;
-import cn.ac.big.bigd.webservice.model.index.Run;
+import cn.ac.big.bigd.webservice.model.index.*;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,5 +86,73 @@ public class gsaController {
         }
 
 
+    }
+
+    //撤回索引 0为失败，1为成功
+    @RequestMapping("/withdrawGsqCRA/{accession}")
+    public int withdrawGsqCRA(@PathVariable(value = "accession") String accession) throws IOException {
+        int result = 0;
+        Boolean strResult = true;
+        strResult = accession.matches("^CRA\\d{6}$");
+        if(strResult){
+            String fileName = "/data/gsagroup/index/withdraw/CRA/"+accession+".json";
+//            String fileName = "/Users/laphael/Desktop/"+accession+".json";
+            File deleteJsonFile = new File(fileName);
+            deleteJsonFile.createNewFile();
+            FileWriter deleteJsonWriter = new FileWriter(deleteJsonFile,true);
+            BufferedWriter deleteJson = new BufferedWriter(deleteJsonWriter);
+            CraAccessions craAccessions = this.gsaIndexMapper.getAccessionsByCraAcc(accession);
+            if(craAccessions!=null){
+                String craAcc = craAccessions.getCraAcc();
+//                deleteJson.write("{\"delete\": {\"_id\": \""+craAcc+"\"}}"+"\n");
+                deleteJson.write("cra\t"+craAcc+"\n");
+                String expAccs = craAccessions.getExpAccs();
+                if(expAccs!=null){
+                    String[] expSp = expAccs.split(",");
+                    for(String exp:expSp){
+//                        deleteJson.write("{\"delete\": {\"_id\": \""+exp+"\"}}"+"\n");
+                        deleteJson.write("exp\t"+exp+"\n");
+                    }
+                }
+                String runAccs = craAccessions.getRunAccs();
+                if(runAccs!=null){
+                    String[] runSp = runAccs.split(",");
+                    for(String run:runSp){
+//                        deleteJson.write("{\"delete\": {\"_id\": \""+run+"\"}}"+"\n");
+                        deleteJson.write("run\t"+run+"\n");
+                    }
+                }
+                deleteJson.close();
+                Process p =null;
+                String[] arrP = new String[]{"java","-cp","/data/gsagroup/index/gsaSearchTools.jar","IndexWithdraw",fileName};
+                for(String a:arrP){
+                    System.out.println(a);
+                }
+                try {
+                    p = Runtime.getRuntime().exec(arrP);
+                    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                    BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                    String s;
+                    System.out.println("标准输出:");
+                    while ((s = stdInput.readLine()) != null) {
+                        System.out.println(s);
+                    }
+
+                    System.out.println("错误输出:");
+                    while ((s = stdError.readLine()) != null) {
+                        System.out.println(s);
+                    }
+                    p.waitFor();
+                } catch (InterruptedException e) {
+                    return result;
+                }
+                p.destroy();
+                result=1;
+            }
+        } else {
+            result=0;
+        }
+        return result;
     }
 }

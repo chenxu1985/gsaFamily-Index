@@ -104,4 +104,9 @@
         where r.`status`=10 and r.release_state=2 and e.exp_id=r.exp_id and r.run_id=rdf.run_id and r.cra_id=c.cra_id
         group by r.accession
     </select>
+    <select id="getAccessionsByCraAcc" resultType="cn.ac.big.bigd.webservice.model.index.CraAccessions" parameterType="String">
+        select GROUP_CONCAT(DISTINCT e.accession) as expAccs,GROUP_CONCAT(DISTINCT r.accession) as runAccs,c.accession as craAcc
+        from cra c,experiment e,run r where c.cra_id=e.cra_id and r.cra_id=c.cra_id and c.accession=#{acc} and c.`status`=3
+        group by c.cra_id
+    </select>
 </mapper>
