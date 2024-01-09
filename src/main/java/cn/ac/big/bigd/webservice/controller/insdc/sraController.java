@@ -165,7 +165,7 @@ public class sraController {
             System.out.println("experiment索引生成完毕 "+new Date());
             System.out.println("Run索引生成开始："+expCount);
 //            select 'Run' as type,second_accession as runAcc,experiment_second_accession as expAcc
-//             ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/insdc/",submission_second_accession,"/",accession) as url
+//             ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/insdc/",submission_second_accession,"/",second_accession) as url
 //            from run
             String runPath = "/data/gsagroup/index/run.txt";
             File runFile = new File(runPath);
