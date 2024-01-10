@@ -85,7 +85,7 @@ public class Experiment {
     }
 
     public void setFileType(String fileType) {
-        this.fileType = fileType;
+        this.fileType = fileType.toLowerCase();
         this.setFileTypes(this.fileType);
     }
 
