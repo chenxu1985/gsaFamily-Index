@@ -89,7 +89,7 @@
              ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,
             u.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization
         from user u,run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c
-        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
+        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id and r.`status`=10
           and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id and u.user_id=c.user_id
         group by c.accession
         order by c.accession desc
@@ -121,7 +121,7 @@
              ,e.planned_read_length_mate_2 as plannedReadLengthMate2,e.lib_nominal_size as libNominalSize,e.lib_nominal_standard_deviation as libNominalStandardDeviation,e.planned_read_length
             as plannedReadLength,e.planned_number_of_cycles as plannedNumberOfCycles
         from user u,cra c ,project p ,sample s,sample_type st,taxon_name t,exp_platform ep,exp_lib_selection els,exp_lib_source elso,exp_lib_strategy elst,experiment e
-                                                                                                                                                               LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
+        LEFT JOIN (select r.exp_id,rdt.run_data_type_name from run r,run_data_type rdt where r.run_data_type_id=rdt.run_data_type_id) as rr on rr.exp_id=e.exp_id
         where e.`status`=3 and e.release_state=2 and c.cra_id = e.cra_id and c.`status`=3 and c.release_state=2
           and p.prj_id = e.prj_id and p.`status`=3 and p.release_state=2 and s.sample_id=e.sample_id and s.sample_type_id=st.sample_type_id
           and s.taxon_id = t.tax_id and t.name_class='scientific name' and ep.platform_id = e.platform_id and els.selection_id = e.selection_id
@@ -134,7 +134,7 @@
              ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,
             u.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization
         from user u,run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c
-        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id
+        where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id and r.`status`=10
           and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id and u.user_id=c.user_id  and c.accession=#{acc}
         group by c.accession
     </select>
