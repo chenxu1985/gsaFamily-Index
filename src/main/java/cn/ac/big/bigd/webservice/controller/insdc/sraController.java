@@ -28,12 +28,13 @@ public class sraController {
 
     //基础experiment导出txt
 //    select 'INSDC' as center,'Experiment' as type,e.second_accession,e.title,e.lib_name as libraryName,e.lib_design as libDesign,
-//    (case when e.lib_layout=1 then 'Single' when e.lib_layout=2 then 'Paired' end) as libLayout,ep.platform_name,els.source_name as source,
-//    est.strategy_name as strategy,ese.selection_name as selection,e.release_time,e.submission_second_accession,e.study_second_accession,e.sample_third_accession
+//            (case when e.lib_layout=1 then 'Single' when e.lib_layout=2 then 'Paired' end) as libLayout,eptn.type_name as platform_name,ep.platform_name as platformDetail,els.source_name as source,
+//    est.strategy_name as strategyDetail,elstn.type_name as strategy,ese.selection_name as selection,e.release_time,e.submission_second_accession,e.study_second_accession,e.sample_third_accession
 //    ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/insdc/",e.submission_second_accession,"/",e.second_accession) as url,e.submittedBy as organization,
 //    e.lib_nominal_size as libNominalSize,e.lib_nominal_standard_deviation as libNominalStandardDeviation
-//    from experiment e ,exp_platform_ncbi ep,exp_lib_source_ncbi els,exp_lib_strategy_ncbi est,exp_lib_selection_ncbi ese
-//    where e.platform_id = ep.platform_id and e.source_id=els.source_id and e.strategy_id=est.strategy_id and e.selection_id=ese.selection_id
+//    from experiment e ,exp_platform_ncbi ep,exp_lib_source_ncbi els,exp_lib_strategy_ncbi est,exp_lib_selection_ncbi ese,exp_platform_type_ncbi eptn,exp_lib_strategy_type_ncbi elstn
+//    where e.platform_id = ep.platform_id and e.source_id=els.source_id and e.strategy_id=est.strategy_id and e.selection_id=ese.selection_id and eptn.type_id=ep.platform_type and elstn.type_id=est.strategy_type_id
+//      limit 0,4500000
 
     @Autowired
     private GsaIndexMapper gsaIndexMapper;
@@ -95,7 +96,7 @@ public class sraController {
         System.out.println("sample编号转换加载完毕 "+new Date());
 
         System.out.println("sample信息加载开始 "+new Date());
-        //select second_accession,name,title,public_description,model,taxon_id,taxon_name from sample
+        //select second_accession,name,title,public_description,model,taxon_id,taxon_name from sample limit 0,5000000
         //由于存在\t的情况选用解析xml
         HashMap sampleMapNew = new HashMap();
         String samplePath1 = "/data/gsagroup/index/sample1.xml";
@@ -118,6 +119,11 @@ public class sraController {
         System.out.println(sampleMap.size());
         System.out.println("sample信息加载完毕 "+new Date());
         System.out.println("rdf加载开始 "+new Date());
+//        select rdf.run_second_accession,GROUP_CONCAT(DISTINCT rdf.run_file_name) as fileName,GROUP_CONCAT(DISTINCT rdf.run_file_size) as fileSize,
+//        GROUP_CONCAT((case when rdf.`storage`="gsapub2" then CONCAT("ftp://download2.cncb.ac.cn/INSDC",rdf.file_path)
+//        when rdf.`storage`="gsainsdc2" then CONCAT("ftp://download2.cncb.ac.cn/INSDC2",rdf.file_path) when rdf.`storage`="gsainsdc3" then CONCAT("ftp://download2.cncb.ac.cn/INSDC3",rdf.file_path) end)) as downPath
+//        from run_data_file rdf
+//        group by rdf.run_second_accession
         String rdfPath = "/data/gsagroup/index/rdf.txt";
         File rdfFile = new File(rdfPath);
         InputStreamReader rdfRead = null;//考虑到编码格式
@@ -302,10 +308,16 @@ public class sraController {
                 Element libLayoutE = (Element) libLayoutN.item(0);
                 NodeList platformN = packE.getElementsByTagName("platform_name");
                 Element platformE = (Element) platformN.item(0);
+
+                NodeList platformND = packE.getElementsByTagName("platformDetail");
+                Element platformED = (Element) platformND.item(0);
+
                 NodeList sourceN = packE.getElementsByTagName("source");
                 Element sourceE = (Element) sourceN.item(0);
                 NodeList strategyN = packE.getElementsByTagName("strategy");
                 Element strategyE = (Element) strategyN.item(0);
+                NodeList strategyND = packE.getElementsByTagName("strategyDetail");
+                Element strategyED = (Element) strategyND.item(0);
                 NodeList selectionN = packE.getElementsByTagName("selection");
                 Element selectionE = (Element) selectionN.item(0);
                 NodeList timeN = packE.getElementsByTagName("release_time");
@@ -353,8 +365,11 @@ public class sraController {
                 }
                 String libLayout = libLayoutE.getFirstChild().getNodeValue();
                 String platform = platformE.getFirstChild().getNodeValue();
+                String platformD = platformED.getFirstChild().getNodeValue();
                 String source = sourceE.getFirstChild().getNodeValue();
                 String strategy = strategyE.getFirstChild().getNodeValue();
+                String strategyD = strategyED.getFirstChild().getNodeValue();
+
                 String selection = selectionE.getFirstChild().getNodeValue();
 
                 String releaseTime = "";
@@ -417,10 +432,12 @@ public class sraController {
                 List<Platform> platforms = new ArrayList<>();
                 Platform platform1 = new Platform();
                 platform1.setPlatform(platform);
+                platform1.setPlatformDetail(platformD);
                 platforms.add(platform1);
                 expObj.setPlatforms(platforms);
                 expObj.setSource(source);
                 expObj.setStrategy(strategy);
+                expObj.setStrategyDetail(strategyD);
                 expObj.setSelection(selection);
                 expObj.setReleaseTime(releaseTime);
                 expObj.setDataset(dataset);

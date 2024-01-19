@@ -5,6 +5,7 @@ package cn.ac.big.bigd.webservice.model.index;
  */
 public class Platform {
     private String platform;
+    private String platformDetail;
 
     public String getPlatform() {
         return platform;
@@ -12,5 +13,13 @@ public class Platform {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public String getPlatformDetail() {
+        return platformDetail;
+    }
+
+    public void setPlatformDetail(String platformDetail) {
+        this.platformDetail = platformDetail;
     }
 }

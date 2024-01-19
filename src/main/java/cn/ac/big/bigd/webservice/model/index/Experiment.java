@@ -18,13 +18,17 @@ public class Experiment {
     private String libDesign;
     private String libLayout;
     private transient String platform;
+    private transient String platformDetail;
     private List<Platform> platforms;
     private String source;
     private String strategy;
+    private String strategyDetail;
     private String selection;
     private String insertSize;
     private String releaseTime;
     private String dataset;
+    private String datasetTitle;
+    private String datasetDesc;
     private String projectAcc;
     private String projectTitle;
     private String projectDesc;
@@ -88,7 +92,13 @@ public class Experiment {
         this.fileType = fileType.toLowerCase();
         this.setFileTypes(this.fileType);
     }
+    public String getPlatformDetail() {
+        return platformDetail;
+    }
 
+    public void setPlatformDetail(String platformDetail) {
+        this.platformDetail = platformDetail;
+    }
     public String getTitle() {
         return title;
     }
@@ -127,7 +137,7 @@ public class Experiment {
 
     public void setPlatform(String platform) {
         this.platform = platform;
-        this.setPlatforms(this.platform);
+        this.setPlatforms(this.platform,this.platformDetail);
     }
 
     public String getSource() {
@@ -354,12 +364,16 @@ public class Experiment {
         this.plannedNumberOfCycles = plannedNumberOfCycles;
     }
 
-    public void setPlatforms(String platforms) {
+    public void setPlatforms(String platforms,String platformDetails) {
         String[] plats = platforms.split(",");
+        String[] pds = platformDetails.split(",");
         List<Platform> platformList = new ArrayList<>();
-        for(String p:plats){
+        for(int i=0;i<plats.length;i++){
+            String p = plats[i];
+            String pd = pds[i];
             Platform pf = new Platform();
             pf.setPlatform(p);
+            pf.setPlatformDetail(pd);
             platformList.add(pf);
         }
         this.platforms = platformList;
@@ -390,5 +404,30 @@ public class Experiment {
 
     public void setPlatforms(List<Platform> platforms) {
         this.platforms = platforms;
+    }
+
+
+    public String getStrategyDetail() {
+        return strategyDetail;
+    }
+
+    public void setStrategyDetail(String strategyDetail) {
+        this.strategyDetail = strategyDetail;
+    }
+
+    public String getDatasetTitle() {
+        return datasetTitle;
+    }
+
+    public void setDatasetTitle(String datasetTitle) {
+        this.datasetTitle = datasetTitle;
+    }
+
+    public String getDatasetDesc() {
+        return datasetDesc;
+    }
+
+    public void setDatasetDesc(String datasetDesc) {
+        this.datasetDesc = datasetDesc;
     }
 }

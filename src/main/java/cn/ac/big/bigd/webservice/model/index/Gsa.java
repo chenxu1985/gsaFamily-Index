@@ -15,9 +15,12 @@ public class Gsa {
     private List<FileType> fileTypes;
     private String title;
     private transient String platform;
+    private transient String platformDetail;
     private List<Platform> platforms;
     private String releaseTime;
     private String dataset;
+    private String datasetTitle;
+    private String datasetDesc;
     private String projectAcc;
     private String projectTitle;
     private String projectDesc;
@@ -67,7 +70,13 @@ public class Gsa {
         this.fileType = fileType.toLowerCase();
         this.setFileTypes(this.fileType);
     }
+    public String getPlatformDetail() {
+        return platformDetail;
+    }
 
+    public void setPlatformDetail(String platformDetail) {
+        this.platformDetail = platformDetail;
+    }
     public String getTitle() {
         return title;
     }
@@ -82,7 +91,7 @@ public class Gsa {
 
     public void setPlatform(String platform) {
         this.platform = platform;
-        this.setPlatforms(this.platform);
+        this.setPlatforms(this.platform,this.platformDetail);
     }
 
     public String getReleaseTime() {
@@ -172,12 +181,16 @@ public class Gsa {
     public List<Platform> getPlatforms() {
         return platforms;
     }
-    public void setPlatforms(String platforms) {
+    public void setPlatforms(String platforms,String platformDetails) {
         String[] plats = platforms.split(",");
+        String[] pds = platformDetails.split(",");
         List<Platform> platformList = new ArrayList<>();
-        for(String p:plats){
+        for(int i=0;i<plats.length;i++){
+            String p = plats[i];
+            String pd = pds[i];
             Platform pf = new Platform();
             pf.setPlatform(p);
+            pf.setPlatformDetail(pd);
             platformList.add(pf);
         }
         this.platforms = platformList;
@@ -192,5 +205,21 @@ public class Gsa {
             fileTypeList.add(ft);
         }
         this.fileTypes = fileTypeList;
+    }
+
+    public String getDatasetTitle() {
+        return datasetTitle;
+    }
+
+    public void setDatasetTitle(String datasetTitle) {
+        this.datasetTitle = datasetTitle;
+    }
+
+    public String getDatasetDesc() {
+        return datasetDesc;
+    }
+
+    public void setDatasetDesc(String datasetDesc) {
+        this.datasetDesc = datasetDesc;
     }
 }
