@@ -31,6 +31,7 @@ public class Experiment {
     private String datasetDesc;
     private String projectAcc;
     private String projectTitle;
+    private String studyAcc;
     private String projectDesc;
     private String sampleAcc;
     private String sampleName;
@@ -429,5 +430,13 @@ public class Experiment {
 
     public void setDatasetDesc(String datasetDesc) {
         this.datasetDesc = datasetDesc;
+    }
+
+    public String getStudyAcc() {
+        return studyAcc;
+    }
+
+    public void setStudyAcc(String studyAcc) {
+        this.studyAcc = studyAcc;
     }
 }

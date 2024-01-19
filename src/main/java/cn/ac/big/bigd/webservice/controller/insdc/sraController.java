@@ -62,6 +62,26 @@ public class sraController {
         FileOutputStream fos;
         String code = "ngdcgsa2023";
         System.out.println("INSDC 索引开始生成 "+new Date());
+        System.out.println("开始加载Project信息 "+new Date());
+        //        select s.second_accession as studyAcc,prj_second_accession as proAcc,p.title as projectTitle,s.title as studyTitle from study s,project p
+//        where s.prj_second_accession is not null and s.prj_second_accession!="" and s.prj_second_accession=p.second_accession
+        //project.txt
+        String projectPath = "/data/gsagroup/index/project.txt";
+        File projectFile = new File(projectPath);
+        InputStreamReader projectRead = null;//考虑到编码格式
+        projectRead = new InputStreamReader(new FileInputStream(projectFile),"GBK");
+        BufferedReader projectReader = new BufferedReader(projectRead);
+        String projectTxt = null;
+        HashMap projectMap = new HashMap();
+        while((projectTxt = projectReader.readLine()) != null){
+            String str =  projectTxt;
+            String studyAcc = str.split("\t")[0];
+            String proAcc = str.split("\t")[1];
+            projectMap.put(studyAcc,proAcc);
+        }
+        projectRead.close();
+        System.out.println("Project信息加载完毕 "+new Date());
+
         System.out.println("可下载实验编号加载开始 "+new Date());
         //select experiment_second_accession from run where is_local=1 group by experiment_second_accession
         String downloadPath = "/data/gsagroup/index/download.txt";
@@ -160,13 +180,13 @@ public class sraController {
             String expPath6 = "/data/gsagroup/index/exp6.xml";
             String expPath7 = "/data/gsagroup/index/exp7.xml";
             int expCountNew = 0;
-            int expCount1 = expXml(expPath1,downloadMap,sampleAccMap,sampleMap,expCountNew,writer,code);
-            int expCount2 = expXml(expPath2,downloadMap,sampleAccMap,sampleMap,expCount1,writer,code);
-            int expCount3 = expXml(expPath3,downloadMap,sampleAccMap,sampleMap,expCount2,writer,code);
-            int expCount4 = expXml(expPath4,downloadMap,sampleAccMap,sampleMap,expCount3,writer,code);
-            int expCount5 = expXml(expPath5,downloadMap,sampleAccMap,sampleMap,expCount4,writer,code);
-            int expCount6 = expXml(expPath6,downloadMap,sampleAccMap,sampleMap,expCount5,writer,code);
-            int expCount = expXml(expPath7,downloadMap,sampleAccMap,sampleMap,expCount6,writer,code);
+            int expCount1 = expXml(expPath1,downloadMap,sampleAccMap,sampleMap,expCountNew,writer,code,projectMap);
+            int expCount2 = expXml(expPath2,downloadMap,sampleAccMap,sampleMap,expCount1,writer,code,projectMap);
+            int expCount3 = expXml(expPath3,downloadMap,sampleAccMap,sampleMap,expCount2,writer,code,projectMap);
+            int expCount4 = expXml(expPath4,downloadMap,sampleAccMap,sampleMap,expCount3,writer,code,projectMap);
+            int expCount5 = expXml(expPath5,downloadMap,sampleAccMap,sampleMap,expCount4,writer,code,projectMap);
+            int expCount6 = expXml(expPath6,downloadMap,sampleAccMap,sampleMap,expCount5,writer,code,projectMap);
+            int expCount = expXml(expPath7,downloadMap,sampleAccMap,sampleMap,expCount6,writer,code,projectMap);
             System.out.println("experiment生成索引数量："+expCount);
             System.out.println("experiment索引生成完毕 "+new Date());
             System.out.println("Run索引生成开始："+expCount);
@@ -273,7 +293,7 @@ public class sraController {
         return sampleMap;
     }
 
-    public int expXml(String expPath,HashMap downloadMap,HashMap sampleAccMap,HashMap sampleMap,int expCount,BufferedWriter writer,String code){
+    public int expXml(String expPath,HashMap downloadMap,HashMap sampleAccMap,HashMap sampleMap,int expCount,BufferedWriter writer,String code,HashMap projectMap){
         System.out.println(expPath+"开始生成");
         File expFile = new File(expPath);
         DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
@@ -380,10 +400,15 @@ public class sraController {
                 if (submissionE.getFirstChild() != null) {
                     dataset =submissionE.getFirstChild().getNodeValue()  ;
                 }
-                String projectAcc = "";
+                String studyAcc = "";
                 if (studyE.getFirstChild() != null) {
-                    projectAcc =studyE.getFirstChild().getNodeValue()  ;
+                    studyAcc =studyE.getFirstChild().getNodeValue()  ;
                 }
+                String proAcc = "";
+                if(projectMap.containsKey(studyAcc)){
+                    proAcc = (String) projectMap.get(studyAcc);
+                }
+
                 String sampleAcc = "";
                 if (sampleE.getFirstChild() != null) {
                     sampleAcc =sampleE.getFirstChild().getNodeValue()  ;
@@ -407,6 +432,7 @@ public class sraController {
                         sorg = con.split(code)[5];
                     }
                 }
+
                 String expUrl = urlE.getFirstChild().getNodeValue();
                 String organization = "";
                 if (orgE.getFirstChild() != null) {
@@ -441,7 +467,8 @@ public class sraController {
                 expObj.setSelection(selection);
                 expObj.setReleaseTime(releaseTime);
                 expObj.setDataset(dataset);
-                expObj.setProjectAcc(projectAcc);
+                expObj.setStudyAcc(studyAcc);
+                expObj.setProjectAcc(proAcc);
                 expObj.setSampleAcc(sampleAcc);
                 expObj.setSampleName(sname);
                 expObj.setSampleTitle(stitle);
