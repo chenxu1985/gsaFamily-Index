@@ -24,7 +24,7 @@ public class gsaController {
 
     @RequestMapping("/getGsaIndex")
     public void getGsaIndex() throws IOException {
-        String index = "gsaTest";
+        String index = "gsa";
         String title = "GSA";
         String url = "https://ngdc.cncb.ac.cn/gsa";
         String desc = "Genome Sequence Archive";
@@ -90,7 +90,7 @@ public class gsaController {
     //生成最新的gsa索引并且导入
     @RequestMapping("/updateGsaIndex")
     public void updateGsaIndex() throws IOException {
-        String index = "gsaTest";
+        String index = "gsa";
         String title = "GSA";
         String url = "https://ngdc.cncb.ac.cn/gsa";
         String desc = "Genome Sequence Archive";
