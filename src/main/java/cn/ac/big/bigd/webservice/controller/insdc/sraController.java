@@ -285,6 +285,7 @@ public class sraController {
                 String content = name+code+sampleTitle+code+sampleDesc+code+type+code+id+code+org;
                 sampleMap.put(acc,content);
             }
+            System.out.println(sampleFile+":解析加载完毕");
         }catch(Exception e){
             System.out.println(sampleFile+":加载异常");
             e.printStackTrace();
