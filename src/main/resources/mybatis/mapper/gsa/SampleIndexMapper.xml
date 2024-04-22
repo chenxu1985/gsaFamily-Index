@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ac.big.bigd.webservice.mapper.gsa.SampleIndexMapper">
+    <resultMap id="SampleType1" type="cn.ac.big.bigd.webservice.model.index.SampleType1">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="isolate" property="isolate" jdbcType="VARCHAR" />
+        <result column="strain" property="strain" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="host_disease" property="hostDisease" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR"/>
+        <result column="host_sex" property="hostSex" jdbcType="INTEGER" />
+        <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType2" type="cn.ac.big.bigd.webservice.model.index.SampleType2">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="isolate" property="isolate" jdbcType="VARCHAR" />
+        <result column="strain" property="strain" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType3" type="cn.ac.big.bigd.webservice.model.index.SampleType3">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="strain" property="strain" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType4" type="cn.ac.big.bigd.webservice.model.index.SampleType4">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="breed" property="breed" jdbcType="VARCHAR" />
+        <result column="strain" property="strain" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="VARCHAR" />
+        <result column="age_unit" property="ageUnit" jdbcType="VARCHAR" />
+        <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="tissue" property="tissue" jdbcType="VARCHAR" />
+        <result column="cell_line" property="cellLine" jdbcType="VARCHAR" />
+        <result column="cell_type" property="cellType" jdbcType="VARCHAR" />
+        <result column="disease" property="disease" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType5" type="cn.ac.big.bigd.webservice.model.index.SampleType5">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="isolate" property="isolate" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="VARCHAR" />
+        <result column="age_unit" property="ageUnit" jdbcType="VARCHAR" />
+        <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="tissue" property="tissue" jdbcType="VARCHAR" />
+        <result column="cell_line" property="cellLine" jdbcType="VARCHAR" />
+        <result column="cell_type" property="cellType" jdbcType="VARCHAR" />
+        <result column="disease" property="disease" jdbcType="VARCHAR" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType6" type="cn.ac.big.bigd.webservice.model.index.SampleType6">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="cultivar" property="cultivar" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="VARCHAR" />
+        <result column="age_unit" property="ageUnit" jdbcType="VARCHAR" />
+        <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="tissue" property="tissue" jdbcType="VARCHAR" />
+        <result column="cell_line" property="cellLine" jdbcType="VARCHAR" />
+        <result column="cell_type" property="cellType" jdbcType="VARCHAR" />
+        <result column="disease" property="disease" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR"/>
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType7" type="cn.ac.big.bigd.webservice.model.index.SampleType7">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="biomaterial_provider" property="biomaterialProvider" jdbcType="VARCHAR" />
+        <result column="disease" property="disease" jdbcType="VARCHAR" />
+        <result column="collected_by" property="collectedBy" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="culture_collection" property="cultureCollection" jdbcType="VARCHAR"/>
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <result column="isolate" property="isolate" jdbcType="VARCHAR"/>
+        <result column="strain" property="strain" jdbcType="VARCHAR"/>
+        <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+        <result column="lab_host" property="labHost" jdbcType="VARCHAR" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType8" type="cn.ac.big.bigd.webservice.model.index.SampleType8">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType9" type="cn.ac.big.bigd.webservice.model.index.SampleType9">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="host_organism_id" property="hostId" jdbcType="INTEGER" />
+        <result column="host_tissue_sampled" property="hostTissueSampled" jdbcType="VARCHAR" />
+        <result column="host_disease" property="hostDisease" jdbcType="VARCHAR"/>
+        <result column="host_sex_id" property="hostSex" jdbcType="INTEGER" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType10" type="cn.ac.big.bigd.webservice.model.index.SampleType10">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="environment_biome" property="environmentBiome" jdbcType="VARCHAR"/>
+        <result column="environment_feature" property="environmentFeature" jdbcType="VARCHAR"/>
+        <result column="environment_material" property="environmentMaterial" jdbcType="VARCHAR"/>
+        <result column="depth" property="depth" jdbcType="VARCHAR"/>
+        <result column="elevation" property="elevation" jdbcType="VARCHAR"/>
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+    <resultMap id="SampleType11" type="cn.ac.big.bigd.webservice.model.index.SampleType11">
+        <result column="center" property="center" jdbcType="VARCHAR" />
+        <result column="accession" property="accession" jdbcType="VARCHAR" />
+        <result column="sampleAcc" property="sampleAcc" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taxonId" property="taxonId" jdbcType="INTEGER" />
+        <result column="organism" property="organism" jdbcType="VARCHAR" />
+        <result column="organization" property="organization" jdbcType="VARCHAR" />
+        <result column="releaseTime" property="releaseTime" jdbcType="VARCHAR" />
+        <result column="sampleType" property="sampleType" jdbcType="VARCHAR" />
+        <result column="environment_biome" property="environmentBiome" jdbcType="VARCHAR"/>
+        <result column="environment_feature" property="environmentFeature" jdbcType="VARCHAR"/>
+        <result column="environment_material" property="environmentMaterial" jdbcType="VARCHAR"/>
+        <result column="depth" property="depth" jdbcType="VARCHAR"/>
+        <result column="geographic_location" property="geographicLocation" jdbcType="VARCHAR"/>
+        <result column="isolation_source" property="isolationSource" jdbcType="VARCHAR"/>
+        <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR"/>
+        <result column="collection_date" property="collectionDate" jdbcType="VARCHAR" />
+        <result column="alkalinity" property="alkalinity" jdbcType="VARCHAR" />
+        <collection property="useBy" ofType="cn.ac.big.bigd.webservice.model.index.Use">
+            <result column="used" jdbcType="VARCHAR" property="used" />
+            <result column="useAccession" property="useAccession" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="SampleTaxon" type="cn.ac.big.bigd.webservice.model.index.SampleTaxon">
+        <result column="tax_id" property="taxId" jdbcType="INTEGER" />
+        <result column="name_txt" property="organism" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getSampleType1" resultMap="SampleType1" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when s.is_synchronization=1 then "GSA-Human" when e.sample_id is null then "" end) as used,
+               (case when s.synchronization_accession is not null then s.synchronization_accession when GROUP_CONCAT(DISTINCT c.accession) is not null then GROUP_CONCAT(DISTINCT c.accession) end) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_pathogen_clinical_host_associated pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+		left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType2" resultMap="SampleType2" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_pathogen_environmental_food_other pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType3" resultMap="SampleType3" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_microbe pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType4" resultMap="SampleType4" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_model_animal pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType5" resultMap="SampleType5" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when s.is_synchronization=1 then "GSA-Human" when e.sample_id is null then "" end) as used,
+               (case when s.synchronization_accession is not null then s.synchronization_accession when GROUP_CONCAT(DISTINCT c.accession) is not null then GROUP_CONCAT(DISTINCT c.accession) end) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_human pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType6" resultMap="SampleType6" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_plant pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType7" resultMap="SampleType7" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_virus pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType8" resultMap="SampleType8" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_metagenome_environmental pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType9" resultMap="SampleType9" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when s.is_synchronization=1 then "GSA-Human" when e.sample_id is null then "" end) as used,
+               (case when s.synchronization_accession is not null then s.synchronization_accession when GROUP_CONCAT(DISTINCT c.accession) is not null then GROUP_CONCAT(DISTINCT c.accession) end) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_mimsme_human_gut pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType10" resultMap="SampleType10" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_mimsme_soil pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getSampleType11" resultMap="SampleType11" useCache="true">
+        select "NGDC" as center,s.accession,s.accession as sampleAcc,s.name,s.title,s.taxon_id as taxonId,
+               st.sample_type_name as sampleType,u.organization_standard as organization,s.release_time as releaseTime,
+               (case when e.sample_id is not null then "GSA" when e.sample_id is null then "" end) as used,GROUP_CONCAT(DISTINCT c.accession) as useAccession
+                ,(case when (s.is_controlled_access is null or s.is_controlled_access=0) then "PUBLIC" when s.is_controlled_access=1 then "CONTROL" end) as access,pc.*
+        from sample_attr_mimsme_water pc,sample s
+        LEFT JOIN sample_type st ON st.sample_type_id=s.sample_type_id
+        left join user u on u.user_id=s.user_id
+        left join experiment e on e.sample_id=s.sample_id and e.`status`!=5
+        left join cra c on c.cra_id=e.cra_id and c.status=3 and c.release_state=2
+        where s.`status`=3 and s.release_state=2 and pc.sample_id=s.sample_id
+        group by s.sample_id
+    </select>
+    <select id="getTaxons" resultMap="SampleTaxon" useCache="true">
+        select tax_id,name_txt from taxon_name where name_class='scientific name'
+    </select>
+
+</mapper>
