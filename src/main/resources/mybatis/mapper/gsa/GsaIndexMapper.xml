@@ -95,10 +95,10 @@
         select 'NGDC' as center,'GSA' as type,c.accession as accession,'' as downloadable,IFNULL(GROUP_CONCAT(DISTINCT rdt.run_data_type_name),0) as fileType
              ,c.title as title,c.title as datasetTitle,c.description as datasetDesc,IFNULL(GROUP_CONCAT(DISTINCT ep.platform_name),0) as platformDetail,IFNULL(GROUP_CONCAT(DISTINCT ept.type_name),0) as platform,c.release_time as releaseTime,p.accession as projectAcc
              ,p.title as projectTitle,p.description as projectDesc,c.release_state as releaseState,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession) as url,
-            u.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization_standard as organization
-        from user u,run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c,exp_platform_type ept
+            c.create_time as createTime,CONCAT(u.first_name," ",u.middle_name," ",u.last_name) as submitter,u.organization as organization
+        from submitter u,run r,run_data_type rdt,experiment e,exp_platform ep,project p,cra c,exp_platform_type ept
         where c.`status`=3  and r.cra_id=c.cra_id and r.run_data_type_id=rdt.run_data_type_id and r.`status`=10
-          and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id and u.user_id=c.user_id and ep.platform_type=ept.type_id
+          and e.platform_id=ep.platform_id and e.cra_id=c.cra_id and e.exp_id=r.exp_id and c.prj_id=p.prj_id and u.submitter_id=c.submitter_id and ep.platform_type=ept.type_id
         group by c.accession
         order by c.accession desc
     </select>
