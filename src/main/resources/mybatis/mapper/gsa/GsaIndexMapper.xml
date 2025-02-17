@@ -104,9 +104,10 @@
     </select>
     <select id="getRun" resultMap="Run" useCache="true">
         select 'Run' as type,r.accession as runAcc,e.accession as expAcc
-             ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
+             ,GROUP_CONCAT((case when rdf.=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
                                  when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
                                  when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
+                                 when rdf.public_root=4 then CONCAT("ftp://download.big.ac.cn/gsa4",rdf.archived_file_dir)
             end)) as downloadPath,GROUP_CONCAT(rdf.archived_file_name) as fileName,GROUP_CONCAT(rdf.run_file_size) as fileSize
              ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",r.accession) as url
         from run r,experiment e,run_data_file rdf,cra c
@@ -152,6 +153,7 @@
              ,GROUP_CONCAT((case when rdf.public_root=1 then CONCAT("ftp://download.big.ac.cn/gsa",rdf.archived_file_dir)
                                  when rdf.public_root=2 then CONCAT("ftp://download.big.ac.cn/gsa2",rdf.archived_file_dir)
                                  when rdf.public_root=3 then CONCAT("ftp://download.big.ac.cn/gsa3",rdf.archived_file_dir)
+                                 when rdf.public_root=4 then CONCAT("ftp://download.big.ac.cn/gsa4",rdf.archived_file_dir)
             end)) as downloadPath,GROUP_CONCAT(rdf.archived_file_name) as fileName,GROUP_CONCAT(rdf.run_file_size) as fileSize
              ,CONCAT("https://ngdc.cncb.ac.cn/gsa/browse/",c.accession,"/",r.accession) as url
         from run r,experiment e,run_data_file rdf,cra c
